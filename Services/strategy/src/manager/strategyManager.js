@@ -11,35 +11,39 @@ module.exports = {
 };
 
 
-function getStrategy(userInput, callback) {
+function getStrategy(userInput, userId, callback) {
   var id = userInput['id'];
+  var query = {isDeleted: false};
   if(id) {
-    strategyModel.findById(id).populate('officeId').populate('practiceId')
-    .populate('regionId').populate('initiativeId').populate('team', '-password').exec(callback);
+    strategyModel.findById(id).populate('officeId practiceId regionId initiativeId')
+    .populate('team', '-password').exec(callback);
   }  
   else {
-    strategyModel.find({isDeleted: false}).populate('officeId').populate('practiceId')
-    .populate('regionId').populate('initiativeId').populate('team', '-password').exec(callback);
+    query['$or'] = [{ owner : userId }, {team : userId}]
+    strategyModel.find(query).populate('officeId practiceId regionId initiativeId')
+    .populate('team', '-password').exec(callback);
   }
 }
 
 
-function createStrategy(userInput, callback) {
+function createStrategy(userInput, userId, callback) {
+  userInput['createdBy'] = userId;
 	var strategy = new strategyModel(userInput);
     strategy.save(callback);
 }
 
 
-function editStrategy(id, userInput, callback) {
+function editStrategy(id, userInput, userId, callback) {
   var strategy = strategyModel.findById(id);
   if(strategy){
     userInput['lastModified'] = new Date();
+    userInput['updatedBy'] = userId;
     strategy.update(userInput,callback);
   }  
 }
 
 
-function deleteStrategy(id, callback){  
-  editStrategy(id, {isDeleted:true}, callback);   
+function deleteStrategy(id, userId, callback){  
+  editStrategy(id, {isDeleted:true}, userId, callback);   
 };
 

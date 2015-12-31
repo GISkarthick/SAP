@@ -17,7 +17,7 @@ function getStrategy(req, res, next) {
         if(clent === null  ){
           return res.send(body);
         }
-        services.strategy.getStrategy(req.params, function(err, data) {
+        services.strategy.getStrategy(req.params, clent._id, function(err, data) {
           if (err) { 
             return res.send({
               error: err

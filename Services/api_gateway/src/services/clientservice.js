@@ -34,8 +34,8 @@ module.exports = {
     }
   },
   strategy: {
-    getStrategy: function(strategyData, callback) {
-      clientRequest('strategy', 'getStrategy', {strategyData: strategyData}, callback);
+    getStrategy: function(strategyData, userId, callback) {
+      clientRequest('strategy', 'getStrategy', {strategyData: strategyData, userId: userId}, callback);
     },
     createStrategy: function(strategyData, userId, callback) {
       clientRequest('strategy', 'createStrategy', {strategyData: strategyData, userId: userId}, callback);

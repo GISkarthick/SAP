@@ -95,27 +95,30 @@ worker_strategy.on('request', function(input, rep) {
   switch(input.op) {
     case 'getStrategy':
       log.info('Finding strategy...');
-      strategyManager.getStrategy(input.params.strategyData, function(err, strategy) {
+      strategyManager.getStrategy(input.params.strategyData, input.params.userId, function(err, strategy) {
         rep.end({result: strategy, error: err});
       });
       break;  
     case 'createStrategy':
       log.info('Creating a new strategy...');
-      strategyManager.createStrategy(input.params.strategyData, function(err, strategy) {
+      strategyManager.createStrategy(input.params.strategyData, input.params.userId, function(err, strategy) {
         auditManager.createAudit({"name" : "strategy", "action" : "create", "actionBy" : input.params.userId});
-        rep.end({result: strategy, error: err});
+        strategyManager.getStrategy({"id" : strategy._id}, input.params.userId, function(err, strategy) {
+          rep.end({result: strategy, error: err});
+        });  
+        //rep.end({result: strategy, error: err});
       });
       break;
     case 'editStrategy':
       log.info('Editing a strategy...');      
-      strategyManager.editStrategy(input.params.id, input.params.strategyData, function(err, strategy) {
+      strategyManager.editStrategy(input.params.id, input.params.strategyData, input.params.userId, function(err, strategy) {
         auditManager.createAudit({"name" : "strategy", "action" : "edit", "actionBy" : input.params.userId});
         rep.end({result: strategy, error: err});
       });
       break;
     case 'deleteStrategy':
       log.info('Deleting a strategy...');
-      strategyManager.deleteStrategy(input.params.id, function(err, strategy) {
+      strategyManager.deleteStrategy(input.params.id, input.params.userId, function(err, strategy) {
         auditManager.createAudit({"name" : "strategy", "action" : "delete", "actionBy" : input.params.userId});
         rep.end({result: strategy, error: err});
       });
