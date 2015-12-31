@@ -1,0 +1,33 @@
+{
+  "name": "api_gateway",
+  "version": "0.0.1",
+  "description": "The API gateway",
+  "main": "src/server.js",
+  "scripts": {
+    "style": "./node_modules/jscs/bin/jscs src/ bin/",
+    "lint": "./node_modules/jshint/bin/jshint src/ bin/",
+    "start": "node bin/api_gateway"
+  },
+  "pre-commit": [
+    "style",
+    "lint"
+  ],
+  "author": "ArunStefen",
+  "dependencies": {
+    "async": "~1.2.1",    
+    "bunyan": "^1.3.5",
+    "node-static": "*",
+    "pigato": "0.0.38",
+    "qs": "^4.0.0",
+    "request": "~2.57.0",
+    "restify": "^3.0.2",
+    "zmq": "^2.11.0",
+    "querystring" : "~0.2.0"
+  },
+  "devDependencies": {
+    "jscs": "^1.13.1",
+    "jshint": "^2.7.0",
+    "pre-commit": "^1.0.7",
+    "cors":"^2.1.7"
+  }
+}
