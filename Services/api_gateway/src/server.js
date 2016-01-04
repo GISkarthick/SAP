@@ -22,6 +22,16 @@ server.on('after', function(request, response, route, error) {
   request.log.info({req: request, res: response, error: error}, 'Request');
 });
 
+var file = new static.Server('../../src');
+
+require('http').createServer(function (request, response) {
+    request.addListener('end', function () {
+        //
+        // Serve files!
+        //
+        file.serve(request, response);
+    }).resume();
+}).listen(8080);
 
 function optionsRoute(req, res, next) {
     res.send(200);
