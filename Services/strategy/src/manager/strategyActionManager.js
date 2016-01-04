@@ -1,6 +1,7 @@
 var express = require('express');
 var log = require('../log');
 var strategyActionModel  = require('./../model/strategyActionModel');
+var strategyManager = require('./strategyManager');
 var router = express.Router();
 
 module.exports = {
@@ -27,7 +28,6 @@ function getStrategyAction(userInput, callback) {
 }
 
 function createStrategyAction(userInput, userId, callback) {
-  console.log(userId)
   var dataString = userInput['data'];
   if(dataString){
     var dataList = JSON.parse(dataString);
@@ -35,6 +35,8 @@ function createStrategyAction(userInput, userId, callback) {
       dataList[i]['createdBy'] = userId;
       var strategyAction = new strategyActionModel(dataList[i]);
       strategyAction.save();
+      //adding actionId to the strategy
+      strategyManager.addActionCount(strategyAction.strategyId, false, true, userId, function(err, data) {});
     };
     callback("", {"ok":dataList.length})
   }else{
@@ -45,20 +47,36 @@ function createStrategyAction(userInput, userId, callback) {
 }
 
 function editStrategyAction(id, userInput, userId, callback) {
-  var strategyAction = strategyActionModel.findById(id);
+  console.log(userId)
+  var strategyAction = strategyActionModel.findById(id, function (err, strategyActionData){
+
+  
   if(strategyAction){
-    if(userInput['status']){
-      if(userInput['status'] == true)
+    console.log(userInput)
+    if(userInput.hasOwnProperty('status')){
+      console.log("entered")
+      if(userInput['status'] == true){
+        console.log("true")
         userInput['completedDate'] = new Date();
-      if(userInput['status'] == false)
+        //adding completed action count to the strategy
+        strategyManager.addActionCount(strategyActionData.strategyId, true, true, userId, function(err, data) {});
+      }
+      if(userInput['status'] == false){
+        console.log("false")
         userInput['completedDate'] = null;
+        //reducing completed action count to the strategy
+        strategyManager.addActionCount(strategyActionData.strategyId, true, false, userId, function(err, data) {});
+      }
     }
     userInput['lastModified'] = new Date();
     userInput['updatedBy'] = userId;
     strategyAction.update(userInput,callback);
-  }  
+  }
+  });  
 }
 
 function deleteStrategyAction(id, userId, callback){  
   editStrategyAction(id, {isDeleted:true}, userId, callback);   
 };
+
+

@@ -7,7 +7,8 @@ module.exports = {
   getStrategy: getStrategy,
   createStrategy: createStrategy,
   editStrategy: editStrategy,
-  deleteStrategy: deleteStrategy
+  deleteStrategy: deleteStrategy,
+  addActionCount : addActionCount
 };
 
 
@@ -66,6 +67,31 @@ function editStrategy(id, userInput, userId, callback) {
     userInput['lastModified'] = new Date();
     userInput['updatedBy'] = userId;
     strategy.update(userInput,callback);
+  }  
+}
+
+function addActionCount(id, completed, addaction, userId, callback) {
+  console.log(id)
+  console.log(completed)
+  console.log(addaction)
+  data = {};
+  var strategy = strategyModel.findById(id);
+  if(strategy){
+    if(completed){
+      if(addaction){
+        data['$inc'] = { 'completedActions': 1 }; 
+      }
+      else{
+        data['$inc'] = { 'completedActions': -1 };
+      } 
+    }
+    else{
+      data['$inc'] = { 'actions': 1 };
+    }
+    data['lastModified'] = new Date();
+    data['updatedBy'] = userId;
+    console.log(data)
+    strategy.update(data, callback);
   }  
 }
 

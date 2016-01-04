@@ -3,7 +3,7 @@ var mongoose  = require('mongoose');
 
 var strategyActionSchema = mongoose.Schema({
     strategyActionName: { type: String, required: true },
-    strategyId: { type: String },
+    strategyId: { type: mongoose.Schema.Types.ObjectId, ref: 'strategy'},
     description: { type: String },
     created: { type: Date, default: Date.now  },
     lastModified: { type: Date, default: Date.now },

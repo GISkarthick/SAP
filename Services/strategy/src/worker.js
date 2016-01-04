@@ -116,7 +116,6 @@ worker_strategy.on('request', function(input, rep) {
         strategyManager.getStrategy({"id" : strategy._id}, input.params.userId, function(err, strategy) {
           rep.end({result: strategy, error: err});
         });  
-        //rep.end({result: strategy, error: err});
       });
       break;
     case 'editStrategy':
@@ -187,7 +186,6 @@ worker_qlist.on('request', function(input, rep) {
         qlistManager.getQlist({"id" : qlist._id}, input.params.userId, function(err, qlist) {
           rep.end({result: qlist, error: err});
         });
-        //rep.end({result: qlist, error: err});
       });
       break;
     case 'editQlist':
