@@ -15,12 +15,18 @@ function getStrategy(userInput, userId, callback) {
   var id = userInput['id'];
   var query = {isDeleted: false};
   if(id) {
-    strategyModel.findById(id).populate('officeId practiceId regionId initiativeId')
+    strategyModel.findById(id).populate('officeId', '_id ID OfficeName')
+    .populate('initiativeId', '_id ID InitiativeName')
+    .populate('practiceId', '_id ID PracticeName')
+    .populate('regionId', '_id ID RegionName')
     .populate('team', '-password').exec(callback);
   }  
   else {
     query['$or'] = [{ owner : userId }, {team : userId}]
-    strategyModel.find(query).populate('officeId practiceId regionId initiativeId')
+    strategyModel.find(query).populate('officeId', '_id ID OfficeName')
+    .populate('initiativeId', '_id ID InitiativeName')
+    .populate('practiceId', '_id ID PracticeName')
+    .populate('regionId', '_id ID RegionName')
     .populate('team', '-password').exec(callback);
   }
 }
