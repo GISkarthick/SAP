@@ -7,7 +7,8 @@ module.exports = {
   getQlist: getQlist,
   createQlist: createQlist,
   editQlist: editQlist,
-  deleteQlist: deleteQlist
+  deleteQlist: deleteQlist,
+  generateStrategySearchData : generateStrategySearchData
 };
 
 
@@ -56,4 +57,36 @@ function editQlist(id, userInput, userId, callback) {
 function deleteQlist(id, userId, callback){  
   editQlist(id, {isDeleted:true}, userId, callback);   
 };
+
+function generateStrategySearchData(qlist){
+  var searchData = {};
+  if(qlist.length > 0){
+    var qlistObject = qlist[0];
+    if(qlistObject.officeId && qlistObject.officeId.length > 0){
+      var officeArray = getArrayValues(qlistObject.officeId);
+      searchData['officeid'] = officeArray.toString();
+    }
+    if(qlistObject.practiceId && qlistObject.practiceId.length > 0){
+      var practiceArray = getArrayValues(qlistObject.practiceId);
+      searchData['practiceid'] = practiceArray.toString();
+    }
+    if(qlistObject.regionId && qlistObject.regionId.length > 0){
+      var regionArray = getArrayValues(qlistObject.regionId);
+      searchData['regionid'] = regionArray.toString();
+    }
+    if(qlistObject.initiativeId && qlistObject.initiativeId.length > 0){
+      var initiativeArray = getArrayValues(qlistObject.initiativeId);
+      searchData['initiativeid'] = initiativeArray.toString();
+    }
+  }
+  return searchData;
+}
+
+function getArrayValues(arrayObject){
+  var stringArray = [];
+  for (var i = arrayObject.length - 1; i >= 0; i--) {
+    stringArray.push(arrayObject[i]._id.toString());
+  };
+  return stringArray;
+}
 

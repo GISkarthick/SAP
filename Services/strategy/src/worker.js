@@ -98,7 +98,17 @@ worker_strategy.on('request', function(input, rep) {
       strategyManager.getStrategy(input.params.strategyData, input.params.userId, function(err, strategy) {
         rep.end({result: strategy, error: err});
       });
-      break;  
+      break; 
+    case 'getStrategyByQlist':
+      log.info('Finding strategy By Qlist...');
+      qlistManager.getQlist({'name' : input.params.qlistname}, input.params.userId, function(err, qlist) {
+        
+        var searchData = qlistManager.generateStrategySearchData(qlist);
+        strategyManager.getStrategy(searchData, input.params.userId, function(err, strategy) {
+          rep.end({result: strategy, error: err});
+        });
+      });
+      break;   
     case 'createStrategy':
       log.info('Creating a new strategy...');
       strategyManager.createStrategy(input.params.strategyData, input.params.userId, function(err, strategy) {
