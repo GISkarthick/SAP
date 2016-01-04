@@ -165,30 +165,33 @@ worker_qlist.on('request', function(input, rep) {
 
   switch(input.op) {
     case 'getQlist':
-      log.info('Finding qlistAction...');
-      qlistManager.getQlist(input.params.qlistData, function(err, qlistAction) {
-        rep.end({result: qlistAction, error: err});
+      log.info('Finding qlist...');
+      qlistManager.getQlist(input.params.qlistData, input.params.userId, function(err, qlist) {
+        rep.end({result: qlist, error: err});
       });
       break;  
     case 'createQlist':
-      log.info('Creating a new qlistAction...');
-      qlistManager.createQlist(input.params.qlistData, function(err, qlistAction) {
+      log.info('Creating a new qlist...');
+      qlistManager.createQlist(input.params.qlistData, input.params.userId, function(err, qlist) {
         auditManager.createAudit({"name" : "qlist", "action" : "create", "actionBy" : input.params.userId});
-        rep.end({result: qlistAction, error: err});
+        qlistManager.getQlist({"id" : qlist._id}, input.params.userId, function(err, qlist) {
+          rep.end({result: qlist, error: err});
+        });
+        //rep.end({result: qlist, error: err});
       });
       break;
     case 'editQlist':
-      log.info('Editing a qlistAction...');      
-      qlistManager.editQlist(input.params.id, input.params.qlistData, function(err, qlistAction) {
+      log.info('Editing a qlist...');      
+      qlistManager.editQlist(input.params.id, input.params.qlistData, input.params.userId, function(err, qlist) {
         auditManager.createAudit({"name" : "qlist", "action" : "edit", "actionBy" : input.params.userId});
-        rep.end({result: qlistAction, error: err});
+        rep.end({result: qlist, error: err});
       });
       break;
     case 'deleteQlist':
-      log.info('Deleting a qlistAction...');
-      qlistManager.deleteQlist(input.params.id, function(err, qlistAction) {
+      log.info('Deleting a qlist...');
+      qlistManager.deleteQlist(input.params.id, input.params.userId, function(err, qlist) {
         auditManager.createAudit({"name" : "qlist", "action" : "delete", "actionBy" : input.params.userId});
-        rep.end({result: qlistAction, error: err});
+        rep.end({result: qlist, error: err});
       });
       break;      
   }
@@ -199,7 +202,7 @@ worker_audit.on('request', function(input, rep) {
 
   switch(input.op) {
     case 'getAudit':
-      log.info('Finding qlistAction...');
+      log.info('Finding qlist...');
       auditManager.getAudit(input.params.auditData, function(err, auditData) {
         rep.end({result: auditData, error: err});
       });

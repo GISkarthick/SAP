@@ -17,7 +17,7 @@ function getQlist(req, res, next) {
         if(clent === null  ){
           return res.send(body);
         }
-        services.qlist.getQlist(req.params, function(err, data) {
+        services.qlist.getQlist(req.params, clent._id, function(err, data) {
           if (err) { 
             return res.send({
               error: err

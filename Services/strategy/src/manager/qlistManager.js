@@ -11,37 +11,49 @@ module.exports = {
 };
 
 
-function getQlist(userInput, callback) {
+function getQlist(userInput, userId, callback) {
   var id = userInput['id'];
-  var createdBy = userInput['userid'];
+  var name = userInput['name'];
   if(id) {
-    qlistModel.findById(id).exec(callback);
+    qlistModel.findById(id).populate('officeId', '_id ID OfficeName')
+    .populate('initiativeId', '_id ID InitiativeName')
+    .populate('practiceId', '_id ID PracticeName')
+    .populate('regionId', '_id ID RegionName').exec(callback);
   }
-  else if(createdBy){
-    qlistModel.find({createdBy: createdBy, isDeleted: false}).exec(callback);
-  }  
   else {
-    qlistModel.find({isDeleted: false}).exec(callback);
+    var query = {isDeleted: false};
+    if(userId){
+      query['createdBy'] = userId;
+    }
+    if(name){
+      query['qlistName'] = new RegExp('^.*?'+name+'.*?$', "i");
+    }
+    qlistModel.find(query).populate('officeId', '_id ID OfficeName')
+    .populate('initiativeId', '_id ID InitiativeName')
+    .populate('practiceId', '_id ID PracticeName')
+    .populate('regionId', '_id ID RegionName').exec(callback);
   }
 }
 
 
-function createQlist(userInput, callback) {
+function createQlist(userInput, userId, callback) {
+  userInput['createdBy'] = userId;
 	var qlist = new qlistModel(userInput);
     qlist.save(callback);
 }
 
 
-function editQlist(id, userInput, callback) {
+function editQlist(id, userInput, userId, callback) {
   var qlist = qlistModel.findById(id);
   if(qlist){
     userInput['lastModified'] = new Date();
+    userInput['updatedBy'] = userId;
     qlist.update(userInput,callback);
   }  
 }
 
 
-function deleteQlist(id, callback){  
-  editQlist(id, {isDeleted:true}, callback);   
+function deleteQlist(id, userId, callback){  
+  editQlist(id, {isDeleted:true}, userId, callback);   
 };
 

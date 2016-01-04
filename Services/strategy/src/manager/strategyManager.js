@@ -23,12 +23,33 @@ function getStrategy(userInput, userId, callback) {
   }  
   else {
     query['$or'] = [{ owner : userId }, {team : userId}]
+    query = generateSearchQuery(query, userInput);
     strategyModel.find(query).populate('officeId', '_id ID OfficeName')
     .populate('initiativeId', '_id ID InitiativeName')
     .populate('practiceId', '_id ID PracticeName')
     .populate('regionId', '_id ID RegionName')
     .populate('team', '-password').exec(callback);
   }
+}
+
+function generateSearchQuery(query, userInput){
+  if(userInput['officeid']){
+    var officeArray = userInput['officeid'].split(',');
+    query['officeId'] = { "$in" : officeArray };
+  }
+  if(userInput['practiceid']){
+    var practiceArray = userInput['practiceid'].split(',');
+    query['practiceId'] = { "$in" : practiceArray };
+  }
+  if(userInput['regionid']){
+    var regionArray = userInput['regionid'].split(',');
+    query['regionId'] = { "$in" : regionArray };
+  }
+  if(userInput['initiativeid']){
+    var initiativeArray = userInput['initiativeid'].split(',');
+    query['initiativeId'] = { "$in" : initiativeArray };
+  }
+  return query;
 }
 
 

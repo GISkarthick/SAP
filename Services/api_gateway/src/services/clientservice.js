@@ -62,8 +62,8 @@ module.exports = {
     }
   },
   qlist: {
-    getQlist: function(qlistData, callback) {
-      clientRequest('qlist', 'getQlist', {qlistData: qlistData}, callback);
+    getQlist: function(qlistData, userId, callback) {
+      clientRequest('qlist', 'getQlist', {qlistData: qlistData, userId: userId}, callback);
     },
     createQlist: function(qlistData, userId, callback) {
       clientRequest('qlist', 'createQlist', {qlistData: qlistData, userId: userId}, callback);
