@@ -102,7 +102,12 @@ function addActionCount(id, completed, addaction, userId, callback) {
       } 
     }
     else{
-      data['$inc'] = { 'actions': 1 };
+      if(addaction){
+        data['$inc'] = { 'actions': 1 }; 
+      }
+      else{
+        data['$inc'] = { 'actions': -1 };
+      }
     }
     data['lastModified'] = new Date();
     data['updatedBy'] = userId;

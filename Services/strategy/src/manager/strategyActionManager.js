@@ -35,7 +35,7 @@ function createStrategyAction(userInput, userId, callback) {
       dataList[i]['createdBy'] = userId;
       var strategyAction = new strategyActionModel(dataList[i]);
       strategyAction.save();
-      //adding actionId to the strategy
+      //adding action count to the strategy
       strategyManager.addActionCount(strategyAction.strategyId, false, true, userId, function(err, data) {});
     };
     callback("", {"ok":dataList.length})
@@ -51,16 +51,20 @@ function editStrategyAction(id, userInput, userId, callback) {
 
   if(strategyAction){
     if(userInput.hasOwnProperty('status')){
-      if(userInput['status'] == true){
+      if(!strategyActionData.status && userInput['status'] == true){
         userInput['completedDate'] = new Date();
         //adding completed action count to the strategy
         strategyManager.addActionCount(strategyActionData.strategyId, true, true, userId, function(err, data) {});
       }
-      if(userInput['status'] == false){
+      if(strategyActionData.status && userInput['status'] == false){
         userInput['completedDate'] = null;
         //reducing completed action count to the strategy
         strategyManager.addActionCount(strategyActionData.strategyId, true, false, userId, function(err, data) {});
       }
+    }
+    if(!strategyActionData.isDeleted && userInput.isDeleted){
+      //reducing action count to the strategy
+        strategyManager.addActionCount(strategyActionData.strategyId, false, false, userId, function(err, data) {});  
     }
     userInput['lastModified'] = new Date();
     userInput['updatedBy'] = userId;
