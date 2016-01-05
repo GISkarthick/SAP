@@ -8,7 +8,8 @@ module.exports = {
   createStrategy: createStrategy,
   editStrategy: editStrategy,
   deleteStrategy: deleteStrategy,
-  addActionCount : addActionCount
+  addActionCount : addActionCount,
+  searchStrategy : searchStrategy
 };
 
 
@@ -24,7 +25,6 @@ function getStrategy(userInput, userId, callback) {
   }  
   else {
     query['$or'] = [{ owner : userId }, {team : userId}]
-    query = generateSearchQuery(query, userInput);
     strategyModel.find(query).populate('officeId', '_id ID OfficeName')
     .populate('initiativeId', '_id ID InitiativeName')
     .populate('practiceId', '_id ID PracticeName')
@@ -33,22 +33,41 @@ function getStrategy(userInput, userId, callback) {
   }
 }
 
+function searchStrategy(userInput, userId, callback){
+  var query = {isDeleted: false};
+  
+  query['$or'] = [{ owner : userId }, {team : userId}]
+  query = generateSearchQuery(query, userInput);
+  strategyModel.find(query).populate('officeId', '_id ID OfficeName')
+  .populate('initiativeId', '_id ID InitiativeName')
+  .populate('practiceId', '_id ID PracticeName')
+  .populate('regionId', '_id ID RegionName')
+  .populate('team', '-password').exec(callback);  
+}
+
 function generateSearchQuery(query, userInput){
-  if(userInput['officeid']){
-    var officeArray = userInput['officeid'].split(',');
+  if(userInput['officeId']){
+    var officeArray = userInput['officeId'].split(',');
     query['officeId'] = { "$in" : officeArray };
   }
-  if(userInput['practiceid']){
-    var practiceArray = userInput['practiceid'].split(',');
+  if(userInput['practiceId']){
+    var practiceArray = userInput['practiceId'].split(',');
     query['practiceId'] = { "$in" : practiceArray };
   }
-  if(userInput['regionid']){
-    var regionArray = userInput['regionid'].split(',');
+  if(userInput['regionId']){
+    var regionArray = userInput['regionId'].split(',');
     query['regionId'] = { "$in" : regionArray };
   }
-  if(userInput['initiativeid']){
-    var initiativeArray = userInput['initiativeid'].split(',');
+  if(userInput['initiativeId']){
+    var initiativeArray = userInput['initiativeId'].split(',');
     query['initiativeId'] = { "$in" : initiativeArray };
+  }
+  if(userInput['priorityId']){
+    var priorityArray = userInput['priorityId'].split(',');
+    query['priorityId'] = { "$in" : priorityArray };
+  }
+  if(userInput['status']){
+    query['status'] = userInput['status'];
   }
   return query;
 }
@@ -71,9 +90,6 @@ function editStrategy(id, userInput, userId, callback) {
 }
 
 function addActionCount(id, completed, addaction, userId, callback) {
-  console.log(id)
-  console.log(completed)
-  console.log(addaction)
   data = {};
   var strategy = strategyModel.findById(id);
   if(strategy){

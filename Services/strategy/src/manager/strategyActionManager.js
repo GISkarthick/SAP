@@ -47,22 +47,16 @@ function createStrategyAction(userInput, userId, callback) {
 }
 
 function editStrategyAction(id, userInput, userId, callback) {
-  console.log(userId)
   var strategyAction = strategyActionModel.findById(id, function (err, strategyActionData){
 
-  
   if(strategyAction){
-    console.log(userInput)
     if(userInput.hasOwnProperty('status')){
-      console.log("entered")
       if(userInput['status'] == true){
-        console.log("true")
         userInput['completedDate'] = new Date();
         //adding completed action count to the strategy
         strategyManager.addActionCount(strategyActionData.strategyId, true, true, userId, function(err, data) {});
       }
       if(userInput['status'] == false){
-        console.log("false")
         userInput['completedDate'] = null;
         //reducing completed action count to the strategy
         strategyManager.addActionCount(strategyActionData.strategyId, true, false, userId, function(err, data) {});

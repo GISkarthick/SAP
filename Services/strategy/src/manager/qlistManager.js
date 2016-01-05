@@ -64,19 +64,25 @@ function generateStrategySearchData(qlist){
     var qlistObject = qlist[0];
     if(qlistObject.officeId && qlistObject.officeId.length > 0){
       var officeArray = getArrayValues(qlistObject.officeId);
-      searchData['officeid'] = officeArray.toString();
+      searchData['officeId'] = officeArray.toString();
     }
     if(qlistObject.practiceId && qlistObject.practiceId.length > 0){
       var practiceArray = getArrayValues(qlistObject.practiceId);
-      searchData['practiceid'] = practiceArray.toString();
+      searchData['practiceId'] = practiceArray.toString();
     }
     if(qlistObject.regionId && qlistObject.regionId.length > 0){
       var regionArray = getArrayValues(qlistObject.regionId);
-      searchData['regionid'] = regionArray.toString();
+      searchData['regionId'] = regionArray.toString();
     }
     if(qlistObject.initiativeId && qlistObject.initiativeId.length > 0){
       var initiativeArray = getArrayValues(qlistObject.initiativeId);
-      searchData['initiativeid'] = initiativeArray.toString();
+      searchData['initiativeId'] = initiativeArray.toString();
+    }
+    if(qlistObject.priorityId){
+      searchData['priorityId'] = qlistObject.priorityId;
+    }
+    if(qlistObject.strategyStatus){
+      searchData['status'] = qlistObject.strategyStatus;
     }
   }
   return searchData;
