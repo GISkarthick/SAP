@@ -34,7 +34,6 @@ function getStrategy(userInput, userId, callback) {
 }
 
 function searchStrategy(userInput, userId, callback){
-  console.log(userInput)
   var query = {isDeleted: false};
   
   if(userInput && userInput['myStrategy'] && userInput['myStrategy'] == true){
@@ -77,7 +76,9 @@ function generateSearchQuery(query, userInput){
     query['priorityId'] = userInput['priorityId'];
   }
   if(userInput['status']){
-    query['status'] = userInput['status'];
+    var range = userInput['status'].split('-');
+    if(range.length > 1)
+      query['status'] = { "$gte": range[0], "$lt": range[1] };
   }
   return query;
 }
