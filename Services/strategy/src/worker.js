@@ -47,24 +47,111 @@ worker.on('request', function(input, rep) {
         rep.end({result: data, error: err});
       });
       break;
+    case 'createInitiative':
+      log.info('Creating a new Initiative...');
+      initiativeManager.createInitiative(input.params.initiativeData, input.params.userId, function(err, data) {
+        auditManager.createAudit({"name" : "initiative", "action" : "create", "actionBy" : input.params.userId});
+        rep.end({result: data, error: err});
+      });
+      break;  
+    case 'editInitiative':
+      log.info('Editing a Initiative...');      
+      initiativeManager.editInitiative(input.params.id, input.params.initiativeData, input.params.userId, function(err, data) {
+        auditManager.createAudit({"name" : "initiative", "action" : "edit", "actionBy" : input.params.userId});
+        rep.end({result: data, error: err});
+      });
+      break;
+    case 'deleteInitiative':
+      log.info('Deleting a Initiative...');
+      initiativeManager.deleteInitiative(input.params.id, input.params.userId, function(err, data) {
+        auditManager.createAudit({"name" : "initiative", "action" : "delete", "actionBy" : input.params.userId});
+        rep.end({result: data, error: err});
+      });
+      break;  
+      
     case 'getOffice':
       log.info('Finding data...');
       officeManager.getOffice(input.params.officeData, function(err, data) {
         rep.end({result: data, error: err});
       });
       break;
+    case 'createOffice':
+      log.info('Creating a new Office...');
+      officeManager.createOffice(input.params.officeData, input.params.userId, function(err, data) {
+        auditManager.createAudit({"name" : "office", "action" : "create", "actionBy" : input.params.userId});
+        rep.end({result: data, error: err});
+      });
+      break;  
+    case 'editOffice':
+      log.info('Editing a Office...');      
+      officeManager.editOffice(input.params.id, input.params.officeData, input.params.userId, function(err, data) {
+        auditManager.createAudit({"name" : "office", "action" : "edit", "actionBy" : input.params.userId});
+        rep.end({result: data, error: err});
+      });
+      break;
+    case 'deleteOffice':
+      log.info('Deleting a Office...');
+      officeManager.deleteOffice(input.params.id, input.params.userId, function(err, data) {
+        auditManager.createAudit({"name" : "office", "action" : "delete", "actionBy" : input.params.userId});
+        rep.end({result: data, error: err});
+      });
+      break;  
+
     case 'getPractice':
       log.info('Finding data...');
       practiceManager.getPractice(input.params.practiceData, function(err, data) {
         rep.end({result: data, error: err});
       });
       break;
+    case 'createPractice':
+      log.info('Creating a new Practice...');
+      practiceManager.createPractice(input.params.practiceData, input.params.userId, function(err, data) {
+        auditManager.createAudit({"name" : "practice", "action" : "create", "actionBy" : input.params.userId});
+        rep.end({result: data, error: err});
+      });
+      break;  
+    case 'editPractice':
+      log.info('Editing a Practice...');      
+      practiceManager.editPractice(input.params.id, input.params.practiceData, input.params.userId, function(err, data) {
+        auditManager.createAudit({"name" : "practice", "action" : "edit", "actionBy" : input.params.userId});
+        rep.end({result: data, error: err});
+      });
+      break;
+    case 'deletePractice':
+      log.info('Deleting a Practice...');
+      practiceManager.deletePractice(input.params.id, input.params.userId, function(err, data) {
+        auditManager.createAudit({"name" : "practice", "action" : "delete", "actionBy" : input.params.userId});
+        rep.end({result: data, error: err});
+      });
+      break;  
+
     case 'getRegion':
       log.info('Finding data...');
       regionManager.getRegion(input.params.regionData, function(err, data) {
         rep.end({result: data, error: err});
       });
-      break;        
+      break;
+    case 'createRegion':
+      log.info('Creating a new Region...');
+      regionManager.createRegion(input.params.regionData, input.params.userId, function(err, data) {
+        auditManager.createAudit({"name" : "region", "action" : "create", "actionBy" : input.params.userId});
+        rep.end({result: data, error: err});
+      });
+      break;  
+    case 'editRegion':
+      log.info('Editing a Region...');      
+      regionManager.editRegion(input.params.id, input.params.regionData, input.params.userId, function(err, data) {
+        auditManager.createAudit({"name" : "region", "action" : "edit", "actionBy" : input.params.userId});
+        rep.end({result: data, error: err});
+      });
+      break;
+    case 'deleteRegion':
+      log.info('Deleting a Region...');
+      regionManager.deleteRegion(input.params.id, input.params.userId, function(err, data) {
+        auditManager.createAudit({"name" : "region", "action" : "delete", "actionBy" : input.params.userId});
+        rep.end({result: data, error: err});
+      });
+      break;          
           
   }
 });
@@ -78,13 +165,27 @@ worker_user.on('request', function(input, rep) {
       userManager.getProfile(input.params.userData, function(err, user) {
         rep.end({result: user, error: err});
       });
-      break;  
+      break;
+    case 'createProfile':
+      log.info('Creating a new Profile...');
+      userManager.createProfile(input.params.userData, input.params.userId, function(err, data) {
+        auditManager.createAudit({"name" : "user", "action" : "create", "actionBy" : input.params.userId});
+        rep.end({result: data, error: err});
+      });
+      break;    
     case 'editProfile':
       log.info('Editing a user...');      
       userManager.editProfile(input.params.id, input.params.userData, function(err, user) {
         rep.end({result: user, error: err});
       });
       break;
+    case 'deleteProfile':
+      log.info('Deleting a Profile...');
+      userManager.deleteProfile(input.params.id, input.params.userId, function(err, data) {
+        auditManager.createAudit({"name" : "user", "action" : "delete", "actionBy" : input.params.userId});
+        rep.end({result: data, error: err});
+      });
+      break;   
           
   }
 });

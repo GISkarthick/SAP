@@ -25,7 +25,7 @@ function getStrategy(userInput, userId, callback) {
   }  
   else {
     query['$or'] = [{ owner : userId }, {team : userId}]
-    strategyModel.find(query).populate('officeId', '_id ID OfficeName')
+    strategyModel.find(query).sort({lastModified: -1}).populate('officeId', '_id ID OfficeName')
     .populate('initiativeId', '_id ID InitiativeName')
     .populate('practiceId', '_id ID PracticeName')
     .populate('regionId', '_id ID RegionName')
@@ -42,10 +42,10 @@ function searchStrategy(userInput, userId, callback){
   else{
     query['$or'] = [{ owner : userId }, {team : userId}] 
   }
-  
+
   query = generateSearchQuery(query, userInput);
 
-  strategyModel.find(query).populate('officeId', '_id ID OfficeName')
+  strategyModel.find(query).sort({lastModified: -1}).populate('officeId', '_id ID OfficeName')
   .populate('initiativeId', '_id ID InitiativeName')
   .populate('practiceId', '_id ID PracticeName')
   .populate('regionId', '_id ID RegionName')

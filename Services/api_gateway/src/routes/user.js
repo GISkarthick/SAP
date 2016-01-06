@@ -5,7 +5,9 @@ module.exports = function(server) {
   server.post('/login', login);
   server.post('/logout', logout);
   server.get('/profile', getProfile);
+  server.put('/profile', createProfile);
   server.post('/profile/:id', editProfile);
+  server.del('/profile/:id', deleteProfile);
 };
 
 
@@ -84,6 +86,26 @@ function getProfile(req, res, next) {
   return next();
 }
 
+function createProfile(req, res, next) {
+
+  function callback(error, response, body) {
+      if (!error && response.statusCode == 200) {
+        var clent = JSON.parse(body);
+        if(clent === null  ){return res.send(body);}
+            services.user.createProfile(req.body, clent._id, function(err, data) {
+              if (err) { return res.send({error: err});}
+              res.send(data);
+            });
+        return null;
+      }else{
+        res.send({error: "invalid_token"});
+      }
+  }
+ authentication.checkOauth(req, callback);
+
+  return next();
+}
+
 function editProfile(req, res, next) {
 
   function callback(error, response, body) {
@@ -106,6 +128,26 @@ function editProfile(req, res, next) {
       }
   }
   authentication.checkOauth(req, callback);
+
+  return next();
+}
+
+function deleteProfile(req, res, next) {
+
+  function callback(error, response, body) {
+      if (!error && response.statusCode == 200) {
+        var clent = JSON.parse(body);
+        if(clent === null  ){return res.send(body);}
+            services.user.deleteProfile(req.params.id, clent._id, function(err, data) {
+              if (err) { return res.send({error: err});}
+              res.send(data);
+            });
+        return null;
+      }else{
+        res.send({error: "invalid_token"});
+      }
+  }
+ authentication.checkOauth(req, callback);
 
   return next();
 }

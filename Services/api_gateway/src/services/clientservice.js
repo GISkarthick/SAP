@@ -29,8 +29,14 @@ module.exports = {
     getProfile: function(userData, callback) {
       clientRequest('user', 'getProfile', {userData: userData}, callback);
     },
+    createProfile: function(userData, userId, callback) {
+      clientRequest('user', 'createProfile', {userData: userData, userId: userId}, callback);
+    },
     editProfile: function(id, userData, callback) {
       clientRequest('user', 'editProfile', {id: id, userData: userData}, callback);
+    }
+    deleteProfile: function(id, userId, callback) {
+      clientRequest('user', 'deleteProfile', {id: id, userId: userId}, callback);
     }
   },
   strategy: {
@@ -81,18 +87,60 @@ module.exports = {
       clientRequest('qlist', 'deleteQlist', {id: id, userId: userId}, callback);
     }
   },
-  other: {
-    getInitiative: function(initiativeData, callback) {
+  initiative: {
+    getInitiative: function(initiativeData, userId, callback) {
       clientRequest('other', 'getInitiative', {initiativeData: initiativeData}, callback);
     },
-    getOffice: function(officeData, callback) {
+    createInitiative: function(initiativeData, userId, callback) {
+      clientRequest('other', 'createInitiative', {initiativeData: initiativeData, userId: userId}, callback);
+    },
+    editInitiative: function(id, initiativeData, userId, callback) {      
+      clientRequest('other', 'editInitiative', {id: id,initiativeData: initiativeData, userId: userId}, callback);
+    },
+    deleteInitiative: function(id, userId, callback) {
+      clientRequest('other', 'deleteInitiative', {id: id, userId: userId}, callback);
+    }
+  },
+  office: {
+    getOffice: function(officeData, userId, callback) {
       clientRequest('other', 'getOffice', {officeData: officeData}, callback);
     },
-    getPractice: function(practiceData, callback) {
+    createOffice: function(officeData, userId, callback) {
+      clientRequest('other', 'createOffice', {officeData: officeData, userId: userId}, callback);
+    },
+    editOffice: function(id, officeData, userId, callback) {      
+      clientRequest('other', 'editOffice', {id: id,officeData: officeData, userId: userId}, callback);
+    },
+    deleteOffice: function(id, userId, callback) {
+      clientRequest('other', 'deleteOffice', {id: id, userId: userId}, callback);
+    }
+  },
+  practice: {
+    getPractice: function(practiceData, userId, callback) {
       clientRequest('other', 'getPractice', {practiceData: practiceData}, callback);
     },
-    getRegion: function(regionData, callback) {
+    createPractice: function(practiceData, userId, callback) {
+      clientRequest('other', 'createPractice', {practiceData: practiceData, userId: userId}, callback);
+    },
+    editPractice: function(id, practiceData, userId, callback) {      
+      clientRequest('other', 'editPractice', {id: id,practiceData: practiceData, userId: userId}, callback);
+    },
+    deletePractice: function(id, userId, callback) {
+      clientRequest('other', 'deletePractice', {id: id, userId: userId}, callback);
+    }
+  },
+  region: {
+    getRegion: function(regionData, userId, callback) {
       clientRequest('other', 'getRegion', {regionData: regionData}, callback);
+    },
+    createRegion: function(regionData, userId, callback) {
+      clientRequest('other', 'createRegion', {regionData: regionData, userId: userId}, callback);
+    },
+    editRegion: function(id, regionData, userId, callback) {      
+      clientRequest('other', 'editRegion', {id: id,regionData: regionData, userId: userId}, callback);
+    },
+    deleteRegion: function(id, userId, callback) {
+      clientRequest('other', 'deleteRegion', {id: id, userId: userId}, callback);
     }
   },
   audit: {

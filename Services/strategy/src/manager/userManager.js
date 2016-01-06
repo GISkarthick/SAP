@@ -35,6 +35,12 @@ function getProfile(userInput, callback) {
   }
 }
 
+function createProfile(userInput, userId, callback) {
+  userInput['createdBy'] = userId;
+  var user = new userModel(userInput);
+    user.save(callback);
+}
+
 function editProfile(id, userInput, callback) {
   var user = userModel.findById(id);
   if(user){
@@ -46,3 +52,7 @@ function editProfile(id, userInput, callback) {
     }
   }  
 }
+
+function deleteProfile(id, userId, callback){  
+  editProfile(id, {isDeleted:true}, userId, callback);   
+};
