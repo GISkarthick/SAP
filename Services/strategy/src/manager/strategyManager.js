@@ -36,8 +36,15 @@ function getStrategy(userInput, userId, callback) {
 function searchStrategy(userInput, userId, callback){
   var query = {isDeleted: false};
   
-  query['$or'] = [{ owner : userId }, {team : userId}]
+  if(userInput['myStrategy']){
+    query['$or'] = [{ owner : userId }]
+  }
+  else{
+    query['$or'] = [{ owner : userId }, {team : userId}] 
+  }
+  
   query = generateSearchQuery(query, userInput);
+
   strategyModel.find(query).populate('officeId', '_id ID OfficeName')
   .populate('initiativeId', '_id ID InitiativeName')
   .populate('practiceId', '_id ID PracticeName')

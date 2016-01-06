@@ -81,6 +81,9 @@ function generateStrategySearchData(qlist){
     if(qlistObject.priorityId){
       searchData['priorityId'] = qlistObject.priorityId;
     }
+    if(qlistObject.myStrategy){
+      searchData['myStrategy'] = qlistObject.myStrategy;
+    }
     if(qlistObject.strategyStatus){
       searchData['status'] = qlistObject.strategyStatus;
     }
