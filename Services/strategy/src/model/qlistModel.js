@@ -7,6 +7,7 @@ var qlistSchema = mongoose.Schema({
     practiceId: [{ type: mongoose.Schema.Types.ObjectId, ref: 'practice'}],
     regionId: [{ type: mongoose.Schema.Types.ObjectId, ref: 'region'}],
     initiativeId: [{ type: mongoose.Schema.Types.ObjectId, ref: 'initiative'}],
+    myStrategy : { type : Boolean , default : false },
     priorityId: { type: String },
     strategyStatus : {type: Number},
     created: { type: Date, default: Date.now  },

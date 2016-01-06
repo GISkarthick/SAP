@@ -37,8 +37,8 @@ module.exports = {
     getStrategy: function(strategyData, userId, callback) {
       clientRequest('strategy', 'getStrategy', {strategyData: strategyData, userId: userId}, callback);
     },
-    getStrategyByQlist: function(qlistname, userId, callback) {
-      clientRequest('strategy', 'getStrategyByQlist', {qlistname: qlistname, userId: userId}, callback);
+    getStrategyByQlist: function(qlistname, strategyData, userId, callback) {
+      clientRequest('strategy', 'getStrategyByQlist', {qlistname: qlistname, strategyData: strategyData, userId: userId}, callback);
     },
     searchStrategy: function(strategyData, userId, callback) {
       clientRequest('strategy', 'searchStrategy', {strategyData: strategyData, userId: userId}, callback);

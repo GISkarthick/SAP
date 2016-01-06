@@ -1,7 +1,10 @@
 var express = require('express');
 var log = require('../log');
 var strategyModel  = require('./../model/strategyModel');
+var env_const = require('../../config/const.json');
 var router = express.Router();
+var PAGE = env_const.pagination.PAGE;
+var LIMIT = env_const.pagination.LIMIT;
 
 module.exports = {
   getStrategy: getStrategy,
@@ -12,10 +15,14 @@ module.exports = {
   searchStrategy : searchStrategy
 };
 
-
 function getStrategy(userInput, userId, callback) {
   var id = userInput['id'];
+  var currentPage = PAGE;
   var query = {isDeleted: false};
+  if(userInput.hasOwnProperty('page') && parseInt(userInput['page']) > 0){
+    currentPage = (parseInt(userInput['page'])-1) * LIMIT;
+  }
+
   if(id) {
     strategyModel.findById(id).populate('officeId', '_id ID OfficeName')
     .populate('initiativeId', '_id ID InitiativeName')
@@ -25,24 +32,40 @@ function getStrategy(userInput, userId, callback) {
   }  
   else {
     query['$or'] = [{ owner : userId }, {team : userId}]
-    strategyModel.find(query).populate('officeId', '_id ID OfficeName')
+    strategyModel.find(query).skip(currentPage).limit(LIMIT).populate('officeId', '_id ID OfficeName')
     .populate('initiativeId', '_id ID InitiativeName')
     .populate('practiceId', '_id ID PracticeName')
     .populate('regionId', '_id ID RegionName')
-    .populate('team', '-password').exec(callback);
+    .populate('team', '-password').exec(function(err, data) {
+      strategyModel.count(query).exec(function(counterr, count) {
+        var totalpage = Math.ceil(count/LIMIT);
+        var obj = {"pages" : totalpage, "data" : data};
+        callback(err,obj);
+      });
+    });
   }
 }
 
 function searchStrategy(userInput, userId, callback){
+  var currentPage = PAGE;
   var query = {isDeleted: false};
+  if(userInput.hasOwnProperty('page') && parseInt(userInput['page']) > 0){
+    currentPage = (parseInt(userInput['page'])-1) * LIMIT;
+  }
   
   query['$or'] = [{ owner : userId }, {team : userId}]
   query = generateSearchQuery(query, userInput);
-  strategyModel.find(query).populate('officeId', '_id ID OfficeName')
+  strategyModel.find(query).skip(currentPage).limit(LIMIT).populate('officeId', '_id ID OfficeName')
   .populate('initiativeId', '_id ID InitiativeName')
   .populate('practiceId', '_id ID PracticeName')
   .populate('regionId', '_id ID RegionName')
-  .populate('team', '-password').exec(callback);  
+  .populate('team', '-password').exec(function(err, data) {
+    strategyModel.count(query).exec(function(counterr, count) {
+      var totalpage = Math.ceil(count/LIMIT);
+      var obj = {"pages" : totalpage, "data" : data};
+      callback(err,obj);
+    });
+  });  
 }
 
 function generateSearchQuery(query, userInput){

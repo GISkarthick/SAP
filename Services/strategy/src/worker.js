@@ -110,6 +110,7 @@ worker_strategy.on('request', function(input, rep) {
       qlistManager.getQlist({'name' : input.params.qlistname}, input.params.userId, function(err, qlist) {
         
         var searchData = qlistManager.generateStrategySearchData(qlist);
+        searchData['page'] = input.params.strategyData.page;
         strategyManager.searchStrategy(searchData, input.params.userId, function(err, strategy) {
           rep.end({result: strategy, error: err});
         });

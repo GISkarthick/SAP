@@ -45,7 +45,7 @@ function getStrategyByQlist(req, res, next) {
         if(clent === null  ){
           return res.send(body);
         }
-        services.strategy.getStrategyByQlist(req.params.qlistname, clent._id, function(err, data) {
+        services.strategy.getStrategyByQlist(req.params.qlistname, req.params, clent._id, function(err, data) {
           if (err) { 
             return res.send({
               error: err
