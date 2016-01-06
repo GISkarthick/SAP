@@ -88,7 +88,7 @@ module.exports = {
     }
   },
   initiative: {
-    getInitiative: function(initiativeData, userId, callback) {
+    getInitiative: function(initiativeData, callback) {
       clientRequest('other', 'getInitiative', {initiativeData: initiativeData}, callback);
     },
     createInitiative: function(initiativeData, userId, callback) {
@@ -102,7 +102,7 @@ module.exports = {
     }
   },
   office: {
-    getOffice: function(officeData, userId, callback) {
+    getOffice: function(officeData, callback) {
       clientRequest('other', 'getOffice', {officeData: officeData}, callback);
     },
     createOffice: function(officeData, userId, callback) {
@@ -116,7 +116,7 @@ module.exports = {
     }
   },
   practice: {
-    getPractice: function(practiceData, userId, callback) {
+    getPractice: function(practiceData, callback) {
       clientRequest('other', 'getPractice', {practiceData: practiceData}, callback);
     },
     createPractice: function(practiceData, userId, callback) {
@@ -130,7 +130,7 @@ module.exports = {
     }
   },
   region: {
-    getRegion: function(regionData, userId, callback) {
+    getRegion: function(regionData, callback) {
       clientRequest('other', 'getRegion', {regionData: regionData}, callback);
     },
     createRegion: function(regionData, userId, callback) {
