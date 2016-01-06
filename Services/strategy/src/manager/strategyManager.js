@@ -34,17 +34,20 @@ function getStrategy(userInput, userId, callback) {
 }
 
 function searchStrategy(userInput, userId, callback){
+  console.log(userInput)
   var query = {isDeleted: false};
   
-  if(userInput['myStrategy'] && userInput['myStrategy'] == true){
+  if(userInput && userInput['myStrategy'] && userInput['myStrategy'] == true){
     query['$or'] = [{ owner : userId }]
   }
   else{
     query['$or'] = [{ owner : userId }, {team : userId}] 
   }
-
-  query = generateSearchQuery(query, userInput);
-
+  if(userInput){  
+    query = generateSearchQuery(query, userInput);
+  }
+  
+console.log(query)
   strategyModel.find(query).sort({lastModified: -1}).populate('officeId', '_id ID OfficeName')
   .populate('initiativeId', '_id ID InitiativeName')
   .populate('practiceId', '_id ID PracticeName')
@@ -54,24 +57,24 @@ function searchStrategy(userInput, userId, callback){
 
 function generateSearchQuery(query, userInput){
   if(userInput['officeId']){
-    var officeArray = userInput['officeId'].split(',');
-    query['officeId'] = { "$in" : officeArray };
+    //var officeArray = userInput['officeId'].split(',');
+    query['officeId'] = { "$in" : userInput['officeId'] };
   }
   if(userInput['practiceId']){
-    var practiceArray = userInput['practiceId'].split(',');
-    query['practiceId'] = { "$in" : practiceArray };
+    //var practiceArray = userInput['practiceId'].split(',');
+    query['practiceId'] = { "$in" : userInput['practiceId'] };
   }
   if(userInput['regionId']){
-    var regionArray = userInput['regionId'].split(',');
-    query['regionId'] = { "$in" : regionArray };
+    //var regionArray = userInput['regionId'].split(',');
+    query['regionId'] = { "$in" : userInput['regionId'] };
   }
   if(userInput['initiativeId']){
-    var initiativeArray = userInput['initiativeId'].split(',');
-    query['initiativeId'] = { "$in" : initiativeArray };
+    //var initiativeArray = userInput['initiativeId'].split(',');
+    query['initiativeId'] = { "$in" : userInput['initiativeId'] };
   }
   if(userInput['priorityId']){
-    var priorityArray = userInput['priorityId'].split(',');
-    query['priorityId'] = { "$in" : priorityArray };
+    //var priorityArray = userInput['priorityId'].split(',');
+    query['priorityId'] = userInput['priorityId'];
   }
   if(userInput['status']){
     query['status'] = userInput['status'];
