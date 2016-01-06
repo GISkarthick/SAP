@@ -36,7 +36,7 @@ function getStrategy(userInput, userId, callback) {
 function searchStrategy(userInput, userId, callback){
   var query = {isDeleted: false};
   
-  if(userInput['myStrategy']){
+  if(userInput['myStrategy'] && userInput['myStrategy'] == true){
     query['$or'] = [{ owner : userId }]
   }
   else{
