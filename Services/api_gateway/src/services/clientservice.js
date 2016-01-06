@@ -34,7 +34,7 @@ module.exports = {
     },
     editProfile: function(id, userData, callback) {
       clientRequest('user', 'editProfile', {id: id, userData: userData}, callback);
-    }
+    },
     deleteProfile: function(id, userId, callback) {
       clientRequest('user', 'deleteProfile', {id: id, userId: userId}, callback);
     }
