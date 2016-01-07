@@ -15,6 +15,8 @@ module.exports = {
 
 function getStrategy(userInput, userId, callback) {
   var id = userInput['id'];
+  var sortBy = userInput['sortby'];
+  var asc = userInput['asc'];
   var query = {isDeleted: false};
   if(id) {
     strategyModel.findById(id).populate('officeId', '_id ID OfficeName')
@@ -25,7 +27,23 @@ function getStrategy(userInput, userId, callback) {
   }  
   else {
     query['$or'] = [{ owner : userId }, {team : userId}]
-    strategyModel.find(query).sort({lastModified: -1}).populate('officeId', '_id ID OfficeName')
+    var sortQuery = {lastModified: -1};
+    var sortType = -1;  
+    if(sortBy){
+      console.log(sortBy)
+      if(asc == 1){
+        sortType = 1;
+      }
+      console.log(sortType)
+      if(sortBy == "strategyName"){
+        sortQuery = {strategyName: sortType};
+      }
+      else if(sortBy == "status"){
+        sortQuery = {status: sortType};
+      }
+    }
+    console.log(sortQuery)
+    strategyModel.find(query).sort(sortQuery).populate('officeId', '_id ID OfficeName')
     .populate('initiativeId', '_id ID InitiativeName')
     .populate('practiceId', '_id ID PracticeName')
     .populate('regionId', '_id ID RegionName')
