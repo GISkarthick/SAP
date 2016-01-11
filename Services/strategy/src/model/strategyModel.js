@@ -5,7 +5,7 @@ var strategySchema = mongoose.Schema({
     strategyName: { type: String, required: true },
     strategyId: { type: String },
     description: { type: String, },
-    owner: { type: String, require:true}, 
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'user', require:true}, 
     priorityId: { type: String },
     startDate: { type: Date},
     endDate: { type: Date },

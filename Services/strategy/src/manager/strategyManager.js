@@ -23,7 +23,7 @@ function getStrategy(userInput, userId, callback) {
     .populate('initiativeId', '_id ID InitiativeName')
     .populate('practiceId', '_id ID PracticeName')
     .populate('regionId', '_id ID RegionName')
-    .populate('team', '-password').exec(callback);
+    .populate('team', '-password').populate('owner', '-password').exec(callback);
   }  
   else {
     query['$or'] = [{ owner : userId }, {team : userId}]
@@ -47,7 +47,7 @@ function getStrategy(userInput, userId, callback) {
     .populate('initiativeId', '_id ID InitiativeName')
     .populate('practiceId', '_id ID PracticeName')
     .populate('regionId', '_id ID RegionName')
-    .populate('team', '-password').exec(callback);
+    .populate('team', '-password').populate('owner', '-password').exec(callback);
   }
 }
 

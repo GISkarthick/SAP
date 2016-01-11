@@ -42,7 +42,10 @@ function createStrategyAction(userInput, userId, callback) {
   }else{
     userInput['createdBy'] = userId;
     var strategyAction = new strategyActionModel(userInput);
-    strategyAction.save(callback);
+    strategyAction.save();
+    //adding action count to the strategy
+    strategyManager.addActionCount(strategyAction.strategyId, false, true, userId, function(err, data) {});
+    callback("", strategyAction);
   }
 }
 
