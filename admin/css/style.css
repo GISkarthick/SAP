@@ -1,0 +1,66 @@
+
+/*-- Common style --*/
+.whitec {
+	color:#fff;
+}
+
+/*-- Header style --*/
+.navbar.navbar-static-top {
+	margin:0;
+}
+
+/*-- Side bar style --*/
+.sidebar {
+	padding-left:0;
+	height: 100vh;
+	background: #f8f8f8;
+	padding-top: 20px;
+	padding-right: 0;
+	border-right: 1px solid #E8E6E6;
+}
+.sidebar aside {
+}
+.sidebar .sidebar-lists > li {
+    border-bottom: 1px solid #e7e7e7;
+}
+.sidebar .sidebar-lists > li a {
+	position:relative;
+}
+.sidebar .sidebar-lists > li a:before, .sidebar .sidebar-lists > li.active a:before {
+	border:2px solid transparent;
+	content:"";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+.sidebar .sidebar-lists > li.active a:before {
+	border: 2px solid #F98E33;
+}
+.sidebar .sidebar-lists > li a {
+	padding: 10px 15px;
+    display: inline-block;
+    font-size: 14px;
+}
+.sidebar .sidebar-lists > li a:hover, .sidebar .sidebar-lists > li a:focus {
+	text-decoration:none;
+}
+.sidebar .sidebar-lists > li a .fa {
+	font-size: 18px;
+    padding-right: 5px;
+    width: 24px;
+    text-align: center;
+}
+
+/*--- Page style ---*/
+.page-view {
+	padding-top:20px;
+}
+.login-panel {
+    margin-top: 25%;
+}
+.table thead th a, .table thead th a:hover, .table thead th a:focus {
+	color:#333;
+}
+
+

@@ -1,0 +1,10 @@
+
+<aside ng-controller="SideMenuCtrl">
+	<ul class="list-unstyled sidebar-lists">
+    	<li ng-repeat="item in sideMenu" menu-toggle="active" class="{{item.cls}}"><a href="#/{{item.src}}"><i class="fa fa-{{item.fa}}"></i> {{item.name}}</a></li>
+    </ul>
+</aside>
+
+
+
+
