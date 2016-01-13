@@ -1,5 +1,5 @@
 
-app.controller('practiceCtrl', function($scope, $modal, sapService){
+app.controller('practiceCtrl', function($scope, $modal, sapService, $window){
 	$scope.open = function (size) {
     var modalInstance = $modal.open({
       templateUrl: 'views/practice-add.html',
@@ -12,9 +12,31 @@ app.controller('practiceCtrl', function($scope, $modal, sapService){
     });
   };	
 	
-  sapService.getPractice(function(data){
-    $scope.practice = data;
+  sapService.getPractice(null, function(data){
+    $scope.practiceList = data;
   });
+
+  $scope.populate = function(id) {
+      sapService.getPractice(id, function(data){
+        console.log(data);
+        $scope.practice = data;
+      });
+    }
+
+    $scope.delete = function(id, index) {
+      if ($window.confirm("Confirm delete Practice ?")) {
+        sapService.deletePractice(id, function(data){
+          
+          var output={"status":"success","message":"Practice Deleted Successfully"};
+          //sapService.toast(output);
+          $scope.practiceList.splice(index, 1);          
+        });
+      }
+      else{
+        return false;
+      }
+    }
+
 
 	
 })

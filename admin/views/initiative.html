@@ -43,15 +43,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="item in initiative = (initiative  | orderBy : predicate :reverse)" >
+                    <tr ng-repeat="item in initiativeList  | orderBy:sortType:sortReverse | filter:searchFish" >
                         <td>{{item.ID}}</td>
                         <td>{{item.InitiativeName}}</td>
                         <td>{{item.InitiatveSortOrder}}</td>
                         <td>{{item.InitiativeShortName}}</td>
                         <td>{{item.created}}</td>
                         <td class="text-center">
-                            <a href="javascript:void(0);"><i class="fa fa-pencil"></i></a> 
-                            <a href="javascript:void(0);"><i class="fa fa-trash"></i></a>
+                            <a href="" ng-click="populate(item._id)"><i class="fa fa-pencil"></i></a> 
+                            <a href="" ng-click="delete(item._id, $index)"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 </tbody>

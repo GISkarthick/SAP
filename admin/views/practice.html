@@ -45,7 +45,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="item in practice">
+                    <tr ng-repeat="item in practiceList | orderBy:sortType:sortReverse | filter:searchFish">
                         <td>{{item.ID}}</td>
                         <td>{{item.PracticeName}}</td>
                         <td>{{item.PracticeSortOrder}}</td>
@@ -54,8 +54,8 @@
                         <td>{{item.created}}</td>
                         
                         <td class="text-center">
-                            <a href="javascript:void(0);"><i class="fa fa-pencil"></i></a> 
-                            <a href="javascript:void(0);"><i class="fa fa-trash"></i></a>
+                            <a href="" ng-click="populate(item._id)"><i class="fa fa-pencil"></i></a> 
+                            <a href="" ng-click="delete(item._id, $index)"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 </tbody>
