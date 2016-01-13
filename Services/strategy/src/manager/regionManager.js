@@ -17,7 +17,7 @@ function getRegion(userInput, callback) {
     regionModel.findById(id).exec(callback);
   }  
   else {
-    regionModel.find({}).exec(callback);
+    regionModel.find({isDeleted: false}).exec(callback);
   }
 }
 

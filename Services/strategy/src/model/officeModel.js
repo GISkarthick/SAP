@@ -8,11 +8,11 @@ var officeSchema = mongoose.Schema({
     OfficeSortOrder: { type: String, },
     OfficeCluster: { type: String, require:true}, 
     OfficeShortName: { type: String },
-    OfficeMDEmpNo: { type: Date},
+    OfficeMDEmpNo: { type: String},
     created: { type: Date, default: Date.now  },
     lastModified: { type: Date, default: Date.now },
-    createdBy: { type: String, },
-    updatedBy: { type: String, },
+    createdBy: { type: String },
+    updatedBy: { type: String },
     isDeleted: { type: Boolean , default : false}
 });
 

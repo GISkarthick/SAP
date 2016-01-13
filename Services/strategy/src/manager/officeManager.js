@@ -17,7 +17,7 @@ function getOffice(userInput, callback) {
     officeModel.findById(id).exec(callback);
   }  
   else {
-    officeModel.find({}).exec(callback);
+    officeModel.find({isDeleted: false}).exec(callback);
   }
 }
 

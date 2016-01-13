@@ -17,7 +17,7 @@ function getPractice(userInput, callback) {
     practiceModel.findById(id).exec(callback);
   }  
   else {
-    practiceModel.find({}).exec(callback);
+    practiceModel.find({isDeleted: false}).exec(callback);
   }
 }
 

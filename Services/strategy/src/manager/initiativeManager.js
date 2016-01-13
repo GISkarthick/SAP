@@ -16,7 +16,7 @@ function getInitiative(userInput, callback) {
     initiativeModel.findById(id).exec(callback);
   }  
   else {
-    initiativeModel.find({}).exec(callback);
+    initiativeModel.find({isDeleted: false}).exec(callback);
   }
 }
 
