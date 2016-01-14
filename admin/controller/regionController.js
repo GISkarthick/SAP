@@ -27,8 +27,7 @@ app.controller('regionCtrl', function($scope, $modal, sapService, $window){
     if ($window.confirm("Confirm delete Region ?")) {
       sapService.deleteRegion(id, function(data){
         
-        var output={"status":"success","message":"Region Deleted Successfully"};
-        //sapService.toast(output);
+        toaster.pop({"type":"success","title":"Region Deleted Successfully"});
         $scope.regionList.splice(index, 1);          
       });
     }

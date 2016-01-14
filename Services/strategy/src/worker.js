@@ -175,7 +175,7 @@ worker_user.on('request', function(input, rep) {
       break;    
     case 'editProfile':
       log.info('Editing a user...');      
-      userManager.editProfile(input.params.id, input.params.userData, function(err, user) {
+      userManager.editProfile(input.params.id, input.params.userData, input.params.userId, function(err, user) {
         rep.end({result: user, error: err});
       });
       break;

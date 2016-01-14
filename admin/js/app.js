@@ -1,4 +1,5 @@
-var app = angular.module('greatInnovusModule', ['ngRoute', 'ui.bootstrap', 'sap.environmentConfigs']);
+var app = angular.module('greatInnovusModule', 
+    ['ngRoute', 'ui.bootstrap', 'sap.environmentConfigs','toaster']);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
@@ -29,6 +30,10 @@ app.config(function($routeProvider, $locationProvider) {
         .when('/initiative', {
             templateUrl: 'views/initiative.html',
             controller: 'initiativeCtrl'
+        })
+        .when('/user', {
+            templateUrl: 'views/user.html',
+            controller: 'userCtrl'
         })
 		
 		.otherwise('/');

@@ -1,9 +1,9 @@
-app.controller('officeCtrl', function($scope, $modal, sapService, $window){
+app.controller('officeCtrl', function($scope, $modal, sapService, $window, toaster){
 			 		  
-	$scope.open = function (size) {
+	$scope.openAddWindow = function (size) {
     var modalInstance = $modal.open({
       templateUrl: 'views/office-add.html',
-      controller: 'ModalInstanceCtrl',
+      controller: 'officeCtrl',
       size: size
     });
 
@@ -23,12 +23,19 @@ app.controller('officeCtrl', function($scope, $modal, sapService, $window){
       });
     }
 
+    $scope.add = function() {
+      console.log('test add');
+      sapService.addOffice($scope.office, function(data){
+        console.log(data);
+        toaster.pop({"type":"success","title":"Office Added Successfully"});
+      });
+    }
+
     $scope.delete = function(id, index) {
       if ($window.confirm("Confirm delete Office ?")) {
         sapService.deleteOffice(id, function(data){
           
-          var output={"status":"success","message":"Office Deleted Successfully"};
-          //sapService.toast(output);
+          toaster.pop({"type":"success","title":"Office Deleted Successfully"});
           $scope.officeList.splice(index, 1);          
         });
       }

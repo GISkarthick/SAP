@@ -27,8 +27,7 @@ app.controller('practiceCtrl', function($scope, $modal, sapService, $window){
       if ($window.confirm("Confirm delete Practice ?")) {
         sapService.deletePractice(id, function(data){
           
-          var output={"status":"success","message":"Practice Deleted Successfully"};
-          //sapService.toast(output);
+          toaster.pop({"type":"success","title":"Practice Deleted Successfully"});
           $scope.practiceList.splice(index, 1);          
         });
       }

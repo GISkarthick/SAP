@@ -41,13 +41,14 @@ function createProfile(userInput, userId, callback) {
     user.save(callback);
 }
 
-function editProfile(id, userInput, callback) {
+function editProfile(id, userInput, userId, callback) {
   var user = userModel.findById(id);
   if(user){
     if(userInput.userId){
       callback("userId cannot be change");
     }
     else{
+      userInput['lastModified'] = new Date();
       user.update(userInput,callback);
     }
   }  

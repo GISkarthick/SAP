@@ -27,8 +27,7 @@ app.controller('initiativeCtrl', function($scope, $modal, sapService, $window){
       if ($window.confirm("Confirm delete Initiative ?")) {
         sapService.deleteInitiative(id, function(data){
           
-          var output={"status":"success","message":"Initiative Deleted Successfully"};
-          //sapService.toast(output);
+          toaster.pop({"type":"success","title":"Initiative Deleted Successfully"});
           $scope.initiativeList.splice(index, 1);          
         });
       }

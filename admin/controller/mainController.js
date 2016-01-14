@@ -8,7 +8,8 @@ app.controller('SideMenuCtrl', function($scope){
 		{'name':'Office', 'src':'office', 'cls':'active', 'fa':'building-o'},
 		{'name':'Practice', 'src':'practice', 'fa':'hourglass-1'},
 		{'name':'Region', 'src':'region', 'fa':'bank'},
-		{'name':'Initiative', 'src':'initiative', 'fa':'bell'}
+		{'name':'Initiative', 'src':'initiative', 'fa':'bell'},
+		{'name':'User', 'src':'user', 'fa':'bell'}
 	]
 	
 })
