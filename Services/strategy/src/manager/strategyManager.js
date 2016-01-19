@@ -58,7 +58,7 @@ function searchStrategy(userInput, userId, callback){
   var query = {isDeleted: false};
   
   if(userInput && userInput['myStrategy'] && userInput['myStrategy'] == true){
-    query['$or'] = [{ owner : userId }]
+    query['$or'] = [{ owner : userId }, {team : userId}]
   }
   else{
     //query['$or'] = [{ owner : userId }, {team : userId}] 
@@ -72,7 +72,7 @@ console.log(query)
   .populate('initiativeId', '_id ID InitiativeName')
   .populate('practiceId', '_id ID PracticeName')
   .populate('regionId', '_id ID RegionName')
-  .populate('team', '-password').exec(callback);  
+  .populate('team', '-password').populate('owner', '-password').exec(callback);  
 }
 
 function generateSearchQuery(query, userInput){
