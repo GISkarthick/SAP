@@ -13,11 +13,28 @@ module.exports = {
 
 function getOffice(userInput, callback) {
   var id = userInput['id'];
+  var name = userInput['name'];
   if(id) {
     officeModel.findById(id).exec(callback);
   }  
   else {
-    officeModel.find({isDeleted: false}).exec(callback);
+    var query = {isDeleted: false};
+    if(name){
+      query = {   
+      $and:[{isDeleted: false},
+          {$or:[
+              {ID: new RegExp('^.*?'+name+'.*?$', "i")},
+              {OfficeName: new RegExp('^.*?'+name+'.*?$', "i")},                                
+              {OfficeSortOrder: new RegExp('^.*?'+name+'.*?$', "i")},
+              {OfficeCluster: new RegExp('^.*?'+name+'.*?$', "i")},                                
+              {OfficeShortName: new RegExp('^.*?'+name+'.*?$', "i")},
+              {OfficeMDEmpNo: new RegExp('^.*?'+name+'.*?$', "i")},
+              ]
+          }]     
+      }; 
+    }
+    
+    officeModel.find(query).exec(callback);
   }
 }
 

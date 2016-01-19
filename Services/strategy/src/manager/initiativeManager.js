@@ -12,11 +12,25 @@ module.exports = {
 
 function getInitiative(userInput, callback) {
   var id = userInput['id'];
+  var name = userInput['name'];
   if(id) {
     initiativeModel.findById(id).exec(callback);
   }  
   else {
-    initiativeModel.find({isDeleted: false}).exec(callback);
+    var query = {isDeleted: false};
+    if(name){
+      query = {   
+      $and:[{isDeleted: false},
+          {$or:[
+              {ID: new RegExp('^.*?'+name+'.*?$', "i")},
+              {InitiativeName: new RegExp('^.*?'+name+'.*?$', "i")},                                
+              {InitiatveSortOrder: new RegExp('^.*?'+name+'.*?$', "i")},
+              {InitiativeShortName: new RegExp('^.*?'+name+'.*?$', "i")}                               
+              ]
+          }]     
+      }; 
+    }
+    initiativeModel.find(query).exec(callback);
   }
 }
 

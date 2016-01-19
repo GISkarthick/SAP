@@ -13,11 +13,24 @@ module.exports = {
 
 function getRegion(userInput, callback) {
   var id = userInput['id'];
+  var name = userInput['name'];
   if(id) {
     regionModel.findById(id).exec(callback);
   }  
   else {
-    regionModel.find({isDeleted: false}).exec(callback);
+    var query = {isDeleted: false};
+    if(name){
+      query = {   
+      $and:[{isDeleted: false},
+          {$or:[
+              {ID: new RegExp('^.*?'+name+'.*?$', "i")},
+              {RegionName: new RegExp('^.*?'+name+'.*?$', "i")},
+              {RegionSortOrder: new RegExp('^.*?'+name+'.*?$', "i")}
+              ]
+          }]     
+      }; 
+    }
+    regionModel.find(query).exec(callback);
   }
 }
 

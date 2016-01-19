@@ -13,11 +13,26 @@ module.exports = {
 
 function getPractice(userInput, callback) {
   var id = userInput['id'];
+  var name = userInput['name'];
   if(id) {
     practiceModel.findById(id).exec(callback);
   }  
   else {
-    practiceModel.find({isDeleted: false}).exec(callback);
+    var query = {isDeleted: false};
+    if(name){
+      query = {   
+      $and:[{isDeleted: false},
+          {$or:[
+              {ID: new RegExp('^.*?'+name+'.*?$', "i")},
+              {PracticeName: new RegExp('^.*?'+name+'.*?$', "i")},
+              {PracticeSortOrder: new RegExp('^.*?'+name+'.*?$', "i")},
+              {PracticeCluster: new RegExp('^.*?'+name+'.*?$', "i")},
+              {practiceShortName: new RegExp('^.*?'+name+'.*?$', "i")}
+              ]
+          }]     
+      }; 
+    }
+    practiceModel.find(query).exec(callback);
   }
 }
 
