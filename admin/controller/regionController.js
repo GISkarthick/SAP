@@ -1,9 +1,11 @@
 
 app.controller('regionCtrl', function($scope, sapService, $window, toaster){
 
-	sapService.getRegion(null, function(data){
-    $scope.regionList = data;
-  });
+  $scope.listRegion = function (){
+  	sapService.getRegion(null, $scope.searchName, function(data){
+      $scope.regionList = data;
+    });
+  }
 
   $scope.delete = function(id, index) {
     if ($window.confirm("Confirm delete Region ?")) {
@@ -17,6 +19,9 @@ app.controller('regionCtrl', function($scope, sapService, $window, toaster){
       return false;
     }
   }
+
+  //List all Region
+  $scope.listRegion();
 
 })
 

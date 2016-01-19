@@ -1,10 +1,13 @@
 app.service('sapService', function(apiFactory){
 	
 	//Office CRUD operation
-	this.getOffice = function(id, callback) {
+	this.getOffice = function(id, name, callback) {
 		var param = '';
 		if(id){
 			param = '?id=' + id;
+		}
+		else if(name){
+			param = '?name=' + name;
 		}
 	   	apiFactory.get('office' + param).then(function(results) {
 	        callback(results);
@@ -30,10 +33,13 @@ app.service('sapService', function(apiFactory){
    	};
 
    	// Region CRUD operation
-   	this.getRegion = function(id, callback) {
+   	this.getRegion = function(id, name, callback) {
    		var param = '';
 		if(id){
 			param = '?id=' + id;
+		}
+		else if(name){
+			param = '?name=' + name;
 		}
 	   	apiFactory.get('region' + param).then(function(results) {
 	        callback(results);
@@ -59,10 +65,13 @@ app.service('sapService', function(apiFactory){
    	};
 
 	// Practice CRUD operation
-   	this.getPractice = function(id, callback) {
+   	this.getPractice = function(id, name, callback) {
    		var param = '';
 		if(id){
 			param = '?id=' + id;
+		}
+		else if(name){
+			param = '?name=' + name;
 		}
 	   	apiFactory.get('practice' + param).then(function(results) {
 	        callback(results);
@@ -88,10 +97,13 @@ app.service('sapService', function(apiFactory){
    	};
 
    	// Initiative CRUD operation
-   	this.getInitiative = function(id, callback) {
+   	this.getInitiative = function(id, name, callback) {
    		var param = '';
 		if(id){
 			param = '?id=' + id;
+		}
+		else if(name){
+			param = '?name=' + name;
 		}
 	   	apiFactory.get('initiative' + param).then(function(results) {
 	        callback(results);
@@ -117,10 +129,13 @@ app.service('sapService', function(apiFactory){
    	};
 
    	// User CRUD operation
-   	this.getUser = function(id, callback) {
+   	this.getUser = function(id, name, callback) {
 		var param = '';
 		if(id){
 			param = '?id=' + id;
+		}
+		else if(name){
+			param = '?name=' + name;
 		}
 	   	apiFactory.get('profile' + param).then(function(results) {
 	        callback(results);

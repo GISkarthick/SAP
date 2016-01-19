@@ -1,9 +1,11 @@
 
 app.controller('initiativeCtrl', function($scope, sapService, $window, toaster){	
 	
-  sapService.getInitiative(null, function(data){
-    $scope.initiativeList = data;
-  });
+  $scope.listInitiative = function (){
+    sapService.getInitiative(null, $scope.searchName, function(data){
+      $scope.initiativeList = data;
+    });
+  }
 
   $scope.delete = function(id, index) {
     if ($window.confirm("Confirm delete Initiative ?")) {
@@ -17,6 +19,9 @@ app.controller('initiativeCtrl', function($scope, sapService, $window, toaster){
       return false;
     }
   }
+
+  //List all Initiative
+  $scope.listInitiative(); 
 
 })
 

@@ -1,7 +1,8 @@
 app.controller('officeCtrl', function($scope, sapService, $window, toaster){
 
   $scope.listOffice = function (){
-    sapService.getOffice(null, function(data){
+    console.log($scope.searchName)
+    sapService.getOffice(null, $scope.searchName, function(data){
       $scope.officeList = data;
     });
   }

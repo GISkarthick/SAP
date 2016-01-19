@@ -41,6 +41,9 @@ function getStrategy(userInput, userId, callback) {
       else if(sortBy == "status"){
         sortQuery = {status: sortType};
       }
+      else if(sortBy == "priorityId"){
+        sortQuery = {priorityId: sortType};
+      }
     }
     console.log(sortQuery)
     strategyModel.find(query).sort(sortQuery).populate('officeId', '_id ID OfficeName')

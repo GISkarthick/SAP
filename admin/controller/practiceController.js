@@ -1,9 +1,11 @@
 
 app.controller('practiceCtrl', function($scope, sapService, $window, toaster){	
 	
-  sapService.getPractice(null, function(data){
-    $scope.practiceList = data;
-  });
+  $scope.listPractice = function (){
+    sapService.getPractice(null, $scope.searchName, function(data){
+      $scope.practiceList = data;
+    });
+  }
 
   $scope.delete = function(id, index) {
     if ($window.confirm("Confirm delete Practice ?")) {
@@ -17,6 +19,9 @@ app.controller('practiceCtrl', function($scope, sapService, $window, toaster){
       return false;
     }
   }
+
+  //List all Practice
+  $scope.listPractice();
 
 })
 

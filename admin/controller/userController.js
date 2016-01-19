@@ -1,8 +1,10 @@
 app.controller('userCtrl', function($scope, $modal, sapService, $window, toaster){
 
-	sapService.getUser(null, function(data){
-		$scope.userList = data;
-	});
+  $scope.listUser = function (){
+  	sapService.getUser(null, $scope.searchName, function(data){
+  		$scope.userList = data;
+  	});
+  }
 
   $scope.delete = function(id, index) {
     if ($window.confirm("Confirm delete User ?")) {
@@ -16,6 +18,9 @@ app.controller('userCtrl', function($scope, $modal, sapService, $window, toaster
       return false;
     }
   }
+
+  //List all Region
+  $scope.listUser();
 	
 })
 
