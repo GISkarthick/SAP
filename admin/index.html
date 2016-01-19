@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="greatInnovusModule">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,60 +9,62 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.16/toaster.min.css" rel="stylesheet" />
   </head>
-  <body>
+  <body ng-controller="mainCtrl">
   
 	<header class="navbar navbar-static-top bg-primary">
     	<div class="container-fluid">
         	<div class="navbar-header">
                 <a href="#/office" class="navbar-brand whitec">Great Innovus Module</a>
             </div>
+            <p class="pull-right" style="padding-top:10px;"><a href="login.html" title="Logout" class="whitec" ng-click="loadview">Logout</a></p>
         </div>
         
-    </header>
+    </header> 
+
+    <toaster-container toaster-options="{
+ 'closeButton': false,
+ 'debug': false,
+ 'position-class': 'toast-top-right',
+ 'onclick': null,
+ 'showDuration': '200',
+ 'hideDuration': '1000',
+ 'timeOut': '5000',
+ 'extendedTimeOut': '1000',
+ 'showEasing': 'swing',
+ 'hideEasing': 'linear',
+ 'showMethod': 'fadeIn',
+ 'hideMethod': 'fadeOut'
+}"></toaster-container> 
     
-   <div id="loginbox" ng-controller="loginCtrl" class="container-fluid">                    
-            <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Please Sign In</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form role="form">
-                            <fieldset>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
-                                    </label>
-                                </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <a href="view.html" class="btn btn-lg btn-success btn-block">Login</a>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
+	<div class="container-fluid">  
+        <div class="row">
+            <div class="col-lg-2 sidebar">
+                <div ng-include="'views/sidebar.html'"></div>
             </div>
-        </div>   
-
-
-
-                        </div>                     
-                    </div>  
+            <div class="col-lg-10">
+                <div ui-view class="page-view"></div>
+            </div>
         </div>
-        
+    </div>
     
-
-    <script src="js/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="http://angular-ui.github.io/ui-router/release/angular-ui-router.min.js"></script>
+    <script src="js/ocLazyLoad.min.js"></script>
     <script src="js/ui-bootstrap-tpls-0.11.0.js"></script>
     <script src="js/angular-route.js"></script>
+    <script src="config/environmentConfigs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.16/toaster.min.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
+    <script src="controller/mainController.js"></script>
+    <script src="controller/officeController.js"></script>
+    <script src="controller/practiceController.js"></script>
+    <script src="controller/regionController.js"></script>
+    <script src="controller/initiativeController.js"></script>
+    <script src="controller/userController.js"></script>
+    <script src="service/sapApiFactory.js"></script>
+    <script src="service/service.js"></script>
   </body>
 </html>

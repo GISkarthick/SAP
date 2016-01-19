@@ -1,5 +1,5 @@
 
-app.controller('initiativeCtrl', function($scope, sapService, $window, toaster){	
+app.controller('initiativeCtrl', function($scope, sapService, $window, toaster, $state){	
 	
   $scope.listInitiative = function (){
     sapService.getInitiative(null, $scope.searchName, function(data){
@@ -25,25 +25,37 @@ app.controller('initiativeCtrl', function($scope, sapService, $window, toaster){
 
 })
 
-app.controller('initiativeAddCtrl', function($scope, sapService, $window, toaster){  
+app.controller('initiativeAddCtrl', function($scope, sapService, $window, toaster, $state, $stateParams){  
+
+  $scope.id = $stateParams.id;
 
   $scope.populate = function(id) {
-    sapService.getInitiative(id, function(data){
-      console.log(data);
+    sapService.getInitiative(id, null, function(data){
       $scope.initiative = data;
     });
   }
 
+  $scope.update = function() {
+    sapService.editInitiative($scope.initiative._id, {data : $scope.initiative}, function(data){
+      toaster.pop({"type":"success","title":"Initiative Updated Successfully"});
+      $state.go('initiative-list');
+    });
+  }
+
   $scope.add = function() {
-    console.log('test add');
     sapService.addInitiative({data : $scope.initiative}, function(data){
-      console.log(data);
       toaster.pop({"type":"success","title":"Initiative Added Successfully"});
+      $state.go('initiative-list');
     });
   }
 
   $scope.cancel = function() {
-    console.log('test cancel');
+    $state.go('initiative-list');
+  }
+
+  if($scope.id){
+    //Populate initiative
+    $scope.populate($scope.id);
   }
 
 })

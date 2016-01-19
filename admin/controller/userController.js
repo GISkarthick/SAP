@@ -1,4 +1,4 @@
-app.controller('userCtrl', function($scope, $modal, sapService, $window, toaster){
+app.controller('userCtrl', function($scope, $modal, sapService, $window, toaster, $state){
 
   $scope.listUser = function (){
   	sapService.getUser(null, $scope.searchName, function(data){
@@ -24,24 +24,37 @@ app.controller('userCtrl', function($scope, $modal, sapService, $window, toaster
 	
 })
 
-app.controller('userAddCtrl', function($scope, $modal, sapService, $window, toaster){
+app.controller('userAddCtrl', function($scope, $modal, sapService, $window, toaster, $state, $stateParams){
+
+  $scope.id = $stateParams.id;
 
   $scope.populate = function(id) {
-    sapService.getUser(id, function(data){
-      console.log(data);
+    sapService.getUser(id, null, function(data){
       $scope.user = data;
+    });
+  }
+
+  $scope.update = function() {
+    sapService.editUser($scope.user._id, {data : $scope.user}, function(data){
+      toaster.pop({"type":"success","title":"User Updated Successfully"});
+      $state.go('user-list');
     });
   }
 
   $scope.add = function() {
     sapService.addUser({data : $scope.user}, function(data){
-      console.log(data);
       toaster.pop({"type":"success","title":"User Added Successfully"});
+      $state.go('user-list');
     });
   }
 
   $scope.cancel = function() {
-    console.log('test cancel');
+    $state.go('user-list');
+  }
+
+  if($scope.id){
+    //Populate user
+    $scope.populate($scope.id);
   }
   
 })

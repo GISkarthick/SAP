@@ -1,7 +1,7 @@
 <div class="page">
 
     <div class="panel panel-default">
-        <div class="panel-heading"><strong><span class="fa fa-th"></span> User</strong> <a href="#/user-add" title="Add User" class="pull-right btn btn-primary btn-xs">Add User</a></div>
+        <div class="panel-heading"><strong><span class="fa fa-th"></span> User</strong> <a ui-sref="user-add" title="Add User" class="pull-right btn btn-primary btn-xs">Add User</a></div>
         <div class="panel-body">
         <div class="table-filters">
             <div class="row">
@@ -62,7 +62,7 @@
                         <td>{{item.EmpUserName}}</td>
                         <td>{{item.EmpStatus}}</td>
                         <td class="text-center">
-                            <a href="" ng-click="populate(item._id)"><i class="fa fa-pencil"></i></a> 
+                            <a ui-sref="user-edit({id:item._id})"><i class="fa fa-pencil"></i></a> 
                             <a href="" ng-click="delete(item._id, $index)"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>

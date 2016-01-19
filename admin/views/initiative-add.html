@@ -4,7 +4,8 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Add Initiative
+                <span ng-if="initiative._id == null">Add Initiative</span>
+                <span ng-if="initiative._id != null">Edit Initiative</span>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -47,7 +48,8 @@
 
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="add()">Add</button>
+    <button class="btn btn-primary" type="button" ng-if="initiative._id == null" ng-click="add()">Add</button>
+    <button class="btn btn-primary" type="button" ng-if="initiative._id != null" ng-click="update()">Update</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
 </div>
 

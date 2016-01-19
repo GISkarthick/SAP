@@ -61,7 +61,7 @@ function editPractice(req, res, next) {
       if (!error && response.statusCode == 200) {
         var clent = JSON.parse(body);
         if(clent === null  ){return res.send(body);}
-            services.practice.editPractice(req.body, clent._id, function(err, data) {
+            services.practice.editPractice(req.params.id, req.body, clent._id, function(err, data) {
               if (err) { return res.send({error: err});}
               res.send(data);
             });

@@ -13,7 +13,8 @@ app.factory("apiFactory", ['$http','$rootScope','SAP_CONFIG',
         var serviceBase = SAP_CONFIG.API_PATH;
         $rootScope.globals = {
                 currentUser: {
-                    token: "5KYMazddSTCz4j8EHg2052MH0KN4NJtoqWN9FtO2cyXGLU61fW4Ym1tYdJVA0NhGwxyUYmgYRNAyShTBP1TcDoaGTKWkOswkLbRX2OIaxHFoixPeUN9d9wsZv9clUVSh7UspF9vZfKyyKFbNQVJQ3XeBc4C21GhLyxl8VSvBiS9H9HzGfWDlPAVF0Rn50Po0528Ron5YNGN2wz9LAQEuLFoj8zFwZcNn80akZjucasihcdTG5aKC6xViHGrhNskl"
+                    token: "wOIxFvannGU1j7DJL1wLXqxmqXkFS1ztvXHUIlVp0AjnM8IIditnlTc3kWPg591nryTor8u3GOihi6PZmXRmiFROsCq9cHIRFx3vudFuWJzi7qTej5vvX8SKx2ZT2XaO4swOU8sy91O3PJFhcOqEa7sq7u4ZfMIdFhHowewoWqYHCQLrJzBHGDdEF17ZXHEfydQZdYCLdrHpi8agmwBO10tftjLdYvYMqaV4wf9WauoAQGm6PlZRW1XFxIprCN5L"
+                    //token: "5KYMazddSTCz4j8EHg2052MH0KN4NJtoqWN9FtO2cyXGLU61fW4Ym1tYdJVA0NhGwxyUYmgYRNAyShTBP1TcDoaGTKWkOswkLbRX2OIaxHFoixPeUN9d9wsZv9clUVSh7UspF9vZfKyyKFbNQVJQ3XeBc4C21GhLyxl8VSvBiS9H9HzGfWDlPAVF0Rn50Po0528Ron5YNGN2wz9LAQEuLFoj8zFwZcNn80akZjucasihcdTG5aKC6xViHGrhNskl"
                 }
             };
         
@@ -47,11 +48,6 @@ app.factory("apiFactory", ['$http','$rootScope','SAP_CONFIG',
                 return $http.put(serviceBase + q, object.data,{transformRequest: transform}).then(function (results) {
                     return results.data;
                 });
-            }else{
-                return $http.put(serviceBase + q).then(function (results) {
-                    return results.data;
-                });
-                
             }
         };
         obj.delete = function (q) {

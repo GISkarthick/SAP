@@ -61,7 +61,7 @@ function editOffice(req, res, next) {
       if (!error && response.statusCode == 200) {
         var clent = JSON.parse(body);
         if(clent === null  ){return res.send(body);}
-            services.office.editOffice(req.body, clent._id, function(err, data) {
+            services.office.editOffice(req.params.id, req.body, clent._id, function(err, data) {
               if (err) { return res.send({error: err});}
               res.send(data);
             });

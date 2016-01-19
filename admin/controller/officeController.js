@@ -1,4 +1,4 @@
-app.controller('officeCtrl', function($scope, sapService, $window, toaster){
+app.controller('officeCtrl', function($scope, sapService, $window, toaster, $state){
 
   $scope.listOffice = function (){
     sapService.getOffice(null, $scope.searchName, function(data){
@@ -24,25 +24,37 @@ app.controller('officeCtrl', function($scope, sapService, $window, toaster){
 	
 })
 
-app.controller('officeAddCtrl', function($scope, sapService, $window, toaster){
+app.controller('officeAddCtrl', function($scope, sapService, $window, toaster, $state, $stateParams){
 
+  $scope.id = $stateParams.id; 
+  
   $scope.populate = function(id) {
-    sapService.getOffice(id, function(data){
-      console.log(data);
+    sapService.getOffice(id, null, function(data){
       $scope.office = data;
     });
   }
 
+  $scope.update = function() {
+    sapService.editOffice($scope.office._id, {data : $scope.office}, function(data){
+      toaster.pop({"type":"success","title":"Office Updated Successfully"});
+      $state.go('office-list');
+    });
+  }
+
   $scope.add = function() {
-    console.log('test add');
     sapService.addOffice({data : $scope.office}, function(data){
-      console.log(data);
       toaster.pop({"type":"success","title":"Office Added Successfully"});
+      $state.go('office-list');
     });
   }
 
   $scope.cancel = function() {
-    console.log('test cancel');
+    $state.go('office-list');
+  }
+
+  if($scope.id){
+    //Populate office
+    $scope.populate($scope.id);
   }
   
 })

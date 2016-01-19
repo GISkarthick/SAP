@@ -1,5 +1,5 @@
 
-app.controller('regionCtrl', function($scope, sapService, $window, toaster){
+app.controller('regionCtrl', function($scope, sapService, $window, toaster, $state){
 
   $scope.listRegion = function (){
   	sapService.getRegion(null, $scope.searchName, function(data){
@@ -25,25 +25,37 @@ app.controller('regionCtrl', function($scope, sapService, $window, toaster){
 
 })
 
-app.controller('regionAddCtrl', function($scope, sapService, $window, toaster){
+app.controller('regionAddCtrl', function($scope, sapService, $window, toaster, $state, $stateParams){
+
+  $scope.id = $stateParams.id;
 
   $scope.populate = function(id) {
-    sapService.getRegion(id, function(data){
-      console.log(data);
+    sapService.getRegion(id, null, function(data){
       $scope.region = data;
     });
   }
 
+  $scope.update = function() {
+    sapService.editRegion($scope.region._id, {data : $scope.region}, function(data){
+      toaster.pop({"type":"success","title":"Region Updated Successfully"});
+      $state.go('region-list');
+    });
+  }
+
   $scope.add = function() {
-    console.log('test add');
     sapService.addRegion({data : $scope.region}, function(data){
-      console.log(data);
       toaster.pop({"type":"success","title":"Region Added Successfully"});
+      $state.go('region-list');
     });
   }
 
   $scope.cancel = function() {
-    console.log('test cancel');
+    $state.go('region-list');
+  }
+
+  if($scope.id){
+    //Populate region
+    $scope.populate($scope.id);
   }
  
 })

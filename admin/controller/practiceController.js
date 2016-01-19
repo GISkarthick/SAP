@@ -1,5 +1,5 @@
 
-app.controller('practiceCtrl', function($scope, sapService, $window, toaster){	
+app.controller('practiceCtrl', function($scope, sapService, $window, toaster, $state){	
 	
   $scope.listPractice = function (){
     sapService.getPractice(null, $scope.searchName, function(data){
@@ -25,25 +25,37 @@ app.controller('practiceCtrl', function($scope, sapService, $window, toaster){
 
 })
 
-app.controller('practiceAddCtrl', function($scope, sapService, $window, toaster){  
+app.controller('practiceAddCtrl', function($scope, sapService, $window, toaster, $state, $stateParams){  
   
+  $scope.id = $stateParams.id;
+
   $scope.populate = function(id) {
-    sapService.getPractice(id, function(data){
-      console.log(data);
+    sapService.getPractice(id, null, function(data){
       $scope.practice = data;
     });
   }
 
+  $scope.update = function() {
+    sapService.editPractice($scope.practice._id, {data : $scope.practice}, function(data){
+      toaster.pop({"type":"success","title":"Practice Updated Successfully"});
+      $state.go('practice-list');
+    });
+  }
+
   $scope.add = function() {
-    console.log('test add');
     sapService.addPractice({data : $scope.practice}, function(data){
-      console.log(data);
       toaster.pop({"type":"success","title":"Practice Added Successfully"});
+      $state.go('practice-list');
     });
   }
 
   $scope.cancel = function() {
-    console.log('test cancel');
+    $state.go('practice-list');
+  }
+
+  if($scope.id){
+    //Populate practice
+    $scope.populate($scope.id);
   }
 
 })

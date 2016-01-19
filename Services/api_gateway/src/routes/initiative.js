@@ -61,7 +61,7 @@ function editInitiative(req, res, next) {
       if (!error && response.statusCode == 200) {
         var clent = JSON.parse(body);
         if(clent === null  ){return res.send(body);}
-            services.initiative.editInitiative(req.body, clent._id, function(err, data) {
+            services.initiative.editInitiative(req.params.id, req.body, clent._id, function(err, data) {
               if (err) { return res.send({error: err});}
               res.send(data);
             });

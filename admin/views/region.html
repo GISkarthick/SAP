@@ -1,7 +1,7 @@
 <div class="page">
 
     <div class="panel panel-default">
-        <div class="panel-heading"><strong><span class="fa fa-th"></span> Region</strong> <a href="#/region-add" title="Add Region" class="pull-right btn btn-primary btn-xs">Add Region</a></div>
+        <div class="panel-heading"><strong><span class="fa fa-th"></span> Region</strong> <a ui-sref="region-add" title="Add Region" class="pull-right btn btn-primary btn-xs">Add Region</a></div>
         <div class="panel-body">
         <div class="table-filters">
             <div class="row">
@@ -43,7 +43,7 @@
                         <td>{{item.created}}</td>
                         
                         <td class="text-center">
-                            <a href="" ng-click="populate(item._id)"><i class="fa fa-pencil"></i></a> 
+                            <a ui-sref="region-edit({id:item._id})"><i class="fa fa-pencil"></i></a> 
                             <a href="" ng-click="delete(item._id, $index)"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>

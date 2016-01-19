@@ -1,7 +1,7 @@
 <div class="page">
 
     <div class="panel panel-default">
-        <div class="panel-heading"><strong><span class="fa fa-th"></span> Practice</strong> <a href="#/practice-add" title="Add Practice" class="pull-right btn btn-primary btn-xs">Add Practice</a></div>
+        <div class="panel-heading"><strong><span class="fa fa-th"></span> Practice</strong> <a ui-sref="practice-add" title="Add Practice" class="pull-right btn btn-primary btn-xs">Add Practice</a></div>
         <div class="panel-body">
         <div class="table-filters">
             <div class="row">
@@ -54,7 +54,7 @@
                         <td>{{item.created}}</td>
                         
                         <td class="text-center">
-                            <a href="" ng-click="populate(item._id)"><i class="fa fa-pencil"></i></a> 
+                            <a ui-sref="practice-edit({id:item._id})"><i class="fa fa-pencil"></i></a> 
                             <a href="" ng-click="delete(item._id, $index)"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
