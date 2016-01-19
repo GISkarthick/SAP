@@ -26,7 +26,7 @@ function getStrategy(userInput, userId, callback) {
     .populate('team', '-password').populate('owner', '-password').exec(callback);
   }  
   else {
-    query['$or'] = [{ owner : userId }, {team : userId}]
+    //query['$or'] = [{ owner : userId }, {team : userId}]
     var sortQuery = {lastModified: -1};
     var sortType = -1;  
     if(sortBy){
@@ -61,7 +61,7 @@ function searchStrategy(userInput, userId, callback){
     query['$or'] = [{ owner : userId }]
   }
   else{
-    query['$or'] = [{ owner : userId }, {team : userId}] 
+    //query['$or'] = [{ owner : userId }, {team : userId}] 
   }
   if(userInput){  
     query = generateSearchQuery(query, userInput);
