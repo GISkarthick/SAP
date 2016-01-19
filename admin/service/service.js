@@ -1,4 +1,6 @@
 app.service('sapService', function(apiFactory){
+	
+	//Office CRUD operation
 	this.getOffice = function(id, callback) {
 		var param = '';
 		if(id){
@@ -27,6 +29,7 @@ app.service('sapService', function(apiFactory){
 	    });
    	};
 
+   	// Region CRUD operation
    	this.getRegion = function(id, callback) {
    		var param = '';
 		if(id){
@@ -37,12 +40,25 @@ app.service('sapService', function(apiFactory){
 	    });
    	};
 
+   	this.addRegion = function (data, callback){
+   		apiFactory.put('region', data).then(function(results) {
+	        callback(results);
+	    });
+   	};
+
+   	this.editRegion = function (id, data, callback){
+   		apiFactory.post('region/' + id, data).then(function(results) {
+	        callback(results);
+	    });
+   	};
+
    	this.deleteRegion = function(id, callback) {
 	   	apiFactory.delete('region/' + id).then(function(results) {
 	        callback(results);
 	    });
    	};
 
+	// Practice CRUD operation
    	this.getPractice = function(id, callback) {
    		var param = '';
 		if(id){
@@ -53,12 +69,25 @@ app.service('sapService', function(apiFactory){
 	    });
    	};
 
+   	this.addPractice = function (data, callback){
+   		apiFactory.put('practice', data).then(function(results) {
+	        callback(results);
+	    });
+   	};
+
+   	this.editPractice = function (id, data, callback){
+   		apiFactory.post('practice/' + id, data).then(function(results) {
+	        callback(results);
+	    });
+   	};
+
    	this.deletePractice = function(id, callback) {
 	   	apiFactory.delete('practice/' + id).then(function(results) {
 	        callback(results);
 	    });
    	};
 
+   	// Initiative CRUD operation
    	this.getInitiative = function(id, callback) {
    		var param = '';
 		if(id){
@@ -67,7 +96,19 @@ app.service('sapService', function(apiFactory){
 	   	apiFactory.get('initiative' + param).then(function(results) {
 	        callback(results);
 	    });
-   	}
+   	};
+
+   	this.addInitiative = function (data, callback){
+   		apiFactory.put('initiative', data).then(function(results) {
+	        callback(results);
+	    });
+   	};
+
+   	this.editInitiative = function (id, data, callback){
+   		apiFactory.post('initiative/' + id, data).then(function(results) {
+	        callback(results);
+	    });
+   	};
 
    	this.deleteInitiative = function(id, callback) {
 	   	apiFactory.delete('initiative/' + id).then(function(results) {
@@ -75,6 +116,7 @@ app.service('sapService', function(apiFactory){
 	    });
    	};
 
+   	// User CRUD operation
    	this.getUser = function(id, callback) {
 		var param = '';
 		if(id){

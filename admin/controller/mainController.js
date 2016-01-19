@@ -14,20 +14,6 @@ app.controller('SideMenuCtrl', function($scope){
 	
 })
 
-app.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
- $scope.take_me_outside = "asdfasdf";
-  
-  $scope.ok = function (take_me_outside) {
-    console.log($modalInstance);
-    $modalInstance.close(take_me_outside);
-  };
-
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
-})
-
-
 .controller('loginCtrl', function($scope){
 
 });

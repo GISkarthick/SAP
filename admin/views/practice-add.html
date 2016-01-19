@@ -1,43 +1,57 @@
-<div class="modal-header">
-    <h3 class="modal-title">Add Practice</h3>
+<div id="page-wrapper">
+            
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Add Practice
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">ID:</label>
+                                    <div class="col-sm-8" style="padding-bottom:10px">
+                                        <input type="text" class="form-control" ng-model="practice.ID" id="ID" placeholder="ID">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Practice Name:</label>
+                                    <div class="col-sm-8" style="padding-bottom:10px">
+                                        <input type="text" class="form-control" ng-model="practice.PracticeName" id="PracticeName" placeholder="Practice Name">
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Practice SortOrder:</label>
+                                    <div class="col-sm-8" style="padding-bottom:10px">
+                                        <input type="text" class="form-control" ng-model="practice.PracticeSortOrder" id="PracticeSortOrder" placeholder="Practice SortOrder">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Practice Cluster:</label>
+                                    <div class="col-sm-8" style="padding-bottom:10px">
+                                        <input type="text" class="form-control" ng-model="practice.PracticeCluster" id="PracticeCluster" placeholder="Practice Cluster">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Practice Short Name:</label>
+                                    <div class="col-sm-8" style="padding-bottom:10px">
+                                        <input type="text" class="form-control" ng-model="practice.practiceShortName" id="practiceShortName" placeholder="Practice Short Name">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="modal-body">
 
-	
-    
-    <form class="form-horizontal">
-  <div class="form-group">
-    <label for="PracticeName" class="col-sm-4 control-label">Practice Name:</label>
-    <div class="col-sm-8">
-      <input type="text" class="form-control" id="PracticeName" placeholder="Office Name">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="OfficeCluster" class="col-sm-4 control-label">Practice Cluster:</label>
-    <div class="col-sm-8">
-      <input type="text" class="form-control" id="PracticeCluster" placeholder="Practice Cluster">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="practiceShortName" class="col-sm-4 control-label">practice Short Name:</label>
-    <div class="col-sm-8">
-      <input type="text" class="form-control" id="practiceShortName" placeholder="practice Short Name">
-    </div>
-  </div>
-  
-  </form>
-    
-    
-    
 
-</div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="ok()">Add</button>
+    <button class="btn btn-primary" type="button" ng-click="add()">Add</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
 </div>
-
-
-
-        
-        
-        

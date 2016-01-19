@@ -19,21 +19,41 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: 'views/office.html',
             controller: 'officeCtrl'
         })
+        .when('/office-add', {
+            templateUrl: 'views/office-add.html',
+            controller: 'officeAddCtrl'
+        })
         .when('/practice', {
             templateUrl: 'views/practice.html',
             controller: 'practiceCtrl'
+        })
+        .when('/practice-add', {
+            templateUrl: 'views/practice-add.html',
+            controller: 'practiceAddCtrl'
         })
         .when('/region', {
             templateUrl: 'views/region.html',
             controller: 'regionCtrl'
         })
+        .when('/region-add', {
+            templateUrl: 'views/region-add.html',
+            controller: 'regionAddCtrl'
+        })
         .when('/initiative', {
             templateUrl: 'views/initiative.html',
             controller: 'initiativeCtrl'
         })
+        .when('/initiative-add', {
+            templateUrl: 'views/initiative-add.html',
+            controller: 'initiativeAddCtrl'
+        })
         .when('/user', {
             templateUrl: 'views/user.html',
             controller: 'userCtrl'
+        })
+        .when('/user-add', {
+            templateUrl: 'views/user-add.html',
+            controller: 'userAddCtrl'
         })
 		
 		.otherwise('/');

@@ -1,54 +1,62 @@
-<div class="modal-header">
-    <h3 class="modal-title">Add Office</h3>
+<div id="page-wrapper">
+            
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Add Office
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">ID:</label>
+                                    <div class="col-sm-8" style="padding-bottom:10px">
+                                        <input type="text" class="form-control" ng-model="office.ID" id="ID" placeholder="ID">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Office Name:</label>
+                                    <div class="col-sm-8" style="padding-bottom:10px">
+                                        <input type="text" class="form-control" ng-model="office.OfficeName" id="OfficeName" placeholder="Office Name">
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label for="OfficeName" class="col-sm-4 control-label">Office SortOrder:</label>
+                                    <div class="col-sm-8" style="padding-bottom:10px">
+                                        <input type="text" class="form-control" ng-model="office.OfficeSortOrder" id="OfficeSortOrder" placeholder="Office SortOrder">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="OfficeCluster" class="col-sm-4 control-label">Office Cluster:</label>
+                                    <div class="col-sm-8" style="padding-bottom:10px">
+                                        <input type="text" class="form-control" ng-model="office.OfficeCluster" id="OfficeCluster" placeholder="Office Cluster">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="OfficeShortName" class="col-sm-4 control-label">Office Short Name:</label>
+                                    <div class="col-sm-8" style="padding-bottom:10px">
+                                        <input type="text" class="form-control" ng-model="office.OfficeShortName" id="OfficeShortName" placeholder="Office Short Name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="OfficeMDEmpNo" class="col-sm-4 control-label">Office MD EmpNo:</label>
+                                    <div class="col-sm-8" style="padding-bottom:10px">
+                                        <input type="text" class="form-control" ng-model="office.OfficeMDEmpNo" id="OfficeMDEmpNo" placeholder="Office MD EmpNo">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="modal-body">
 
-	
-    
-    <form class="form-horizontal">
-  <div class="form-group">
-    <label for="OfficeName" class="col-sm-4 control-label">ID:</label>
-    <div class="col-sm-8">
-      <input type="text" class="form-control" ng-model="office.ID" id="ID" placeholder="ID">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="OfficeName" class="col-sm-4 control-label">Office Name:</label>
-    <div class="col-sm-8">
-      <input type="text" class="form-control" ng-model="office.OfficeName" id="OfficeName" placeholder="Office Name">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="OfficeName" class="col-sm-4 control-label">Office SortOrder:</label>
-    <div class="col-sm-8">
-      <input type="text" class="form-control" ng-model="office.OfficeSortOrder" id="OfficeSortOrder" placeholder="Office SortOrder">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="OfficeCluster" class="col-sm-4 control-label">Office Cluster:</label>
-    <div class="col-sm-8">
-      <input type="text" class="form-control" ng-model="office.OfficeCluster" id="OfficeCluster" placeholder="Office Cluster">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="OfficeShortName" class="col-sm-4 control-label">Office Short Name:</label>
-    <div class="col-sm-8">
-      <input type="text" class="form-control" ng-model="office.OfficeShortName" id="OfficeShortName" placeholder="Office Short Name">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="OfficeMDEmpNo" class="col-sm-4 control-label">Office MD EmpNo:</label>
-    <div class="col-sm-8">
-      <input type="text" class="form-control" ng-model="office.OfficeMDEmpNo" id="OfficeMDEmpNo" placeholder="Office MD EmpNo">
-    </div>
-  </div>
-  
-  </form>
-    
-    
-    
 
-</div>
 <div class="modal-footer">
     <button class="btn btn-primary" type="button" ng-click="add()">Add</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
