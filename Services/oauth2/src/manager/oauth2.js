@@ -98,7 +98,11 @@ server.exchange(oauth2orize.exchange.code(function(client, code, redirectURI, do
 }*/
 
 exports.validateClient = function(request, response, done){
-  client.findOne({ EmpEmail: request.body.email, password: request.body.password}, function(err, user) {
+  
+  client.findOne({ '$or' : [{ EmpEmail : new RegExp(["^", request.body.email, "$"].join(""), "i") }, 
+    { EmpUserName : new RegExp(["^", request.body.email, "$"].join(""), "i") }], 
+    password: request.body.password}, function(err, user) {
+  //client.findOne({ EmpEmail: request.body.email, password: request.body.password}, function(err, user) {
     if (err) { return done(err); }
     if(!user){ return response.json("login failed"); }
     var code = utils.uid(16)
