@@ -231,7 +231,7 @@ app.config(function($stateProvider, $ocLazyLoadProvider, $locationProvider) {
     })
     .state('mail-compose',{
         url:'/email',
-        controller: 'mailCtrl',
+        controller: 'userCtrl',
         templateUrl:'views/mail-compose.html',
         resolve: {
             loadMyFiles:function($ocLazyLoad) {

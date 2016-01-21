@@ -40,6 +40,18 @@ app.factory("apiFactory", ['$http','$rootScope','SAP_CONFIG',
                 return results.data;
             });
         };
+        obj.postjsonupload = function (q, object) {
+            if ($rootScope.globals.currentUser) {
+                $http.defaults.headers.common['Authorization'] = 'bearer ' + $rootScope.globals.currentUser.token; 
+            }
+            return $http.post(serviceBase + q,object, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            }).then(function (results) {
+                return results;
+            });
+        };
+
         obj.put = function (q, object) {
             if ($rootScope.globals.currentUser) {
                 $http.defaults.headers.common['Authorization'] = 'bearer ' + $rootScope.globals.currentUser.token; 

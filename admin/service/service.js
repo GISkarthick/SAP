@@ -176,7 +176,7 @@ app.service('sapService', function(apiFactory){
    	};
 
    	this.sendMail = function (data, callback){
-   		apiFactory.post('sendmail', data).then(function(results) {
+   		apiFactory.postjsonupload('sendmail', data).then(function(results) {
 	        callback(results);
 	    });
    	};

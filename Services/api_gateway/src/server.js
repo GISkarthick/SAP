@@ -33,6 +33,15 @@ require('http').createServer(function (request, response) {
     }).resume();
 }).listen(8080);
 
+var adminfile = new static.Server('../../admin');
+
+require('http').createServer(function (request, response) {
+    request.addListener('end', function () {
+        
+        adminfile.serve(request, response);
+    }).resume();
+}).listen(9090);
+
 function optionsRoute(req, res, next) {
     res.send(200);
     return next();

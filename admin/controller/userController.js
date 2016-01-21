@@ -29,20 +29,19 @@ app.controller('userCtrl', function($scope, $modal, sapService, $window, toaster
     $scope.listUser();
   }
 
-  $scope.generatePdf = function (){
-
+  $scope.generatePdfJson = function (userList){
     var pdfData = [[ { text: "EmployeeID", bold: true }, { text: "Email", bold: true }
-    , { text: "FirstName", bold: true }, { text: "LastName", bold: true }, 
-    { text: "UserName", bold: true }, { text: "Status", bold: true }]];
+      , { text: "FirstName", bold: true }, { text: "LastName", bold: true }, 
+      { text: "UserName", bold: true }, { text: "Status", bold: true }]];
 
-    for (var i = 0; i < $scope.userList.length; i++) {
+    for (var i = 0; i < userList.length; i++) {
       var user = [];
-      user.push($scope.userList[i].EmployeeID);
-      user.push($scope.userList[i].EmpEmail);
-      user.push($scope.userList[i].FirstName);
-      user.push($scope.userList[i].LastName);
-      user.push($scope.userList[i].EmpUserName);
-      user.push($scope.userList[i].EmpStatus);
+      user.push(userList[i].EmployeeID);
+      user.push(userList[i].EmpEmail);
+      user.push(userList[i].FirstName);
+      user.push(userList[i].LastName);
+      user.push(userList[i].EmpUserName);
+      user.push(userList[i].EmpStatus);
       pdfData.push(user);
     };
 
@@ -57,13 +56,42 @@ app.controller('userCtrl', function($scope, $modal, sapService, $window, toaster
         }
       ]
     };
+    return docDefinition;
+  }
+
+  $scope.generatePdf = function (){
+    var docDefinition = $scope.generatePdfJson($scope.userList);
     pdfMake.createPdf(docDefinition).download();
+  }
+
+  $scope.send = function() {
+    var docDefinition = $scope.generatePdfJson($scope.userList);
+
+    pdfMake.createPdf(docDefinition).getDataUrl(function(buffer) {
+      var fd = new FormData();
+      fd.append('filedata', buffer);
+      fd.append('to', $scope.mail.to);
+      fd.append('subject', $scope.mail.subject);
+      fd.append('body', $scope.mail.body);
+
+      sapService.sendMail(fd, function(data){
+        toaster.pop({"type":"success","title":"Email Sent Successfully"});
+        //$state.go('user-list');
+      });
+    });
+    
+  }
+
+  $scope.cancel = function() {
+    $state.go('user-list');
   }
 
   //List all Region
   $scope.listUser();
 	
 })
+
+
 
 app.controller('userAddCtrl', function($scope, $modal, sapService, $window, toaster, $state, $stateParams){
 
@@ -96,21 +124,6 @@ app.controller('userAddCtrl', function($scope, $modal, sapService, $window, toas
   if($scope.id){
     //Populate user
     $scope.populate($scope.id);
-  }
-  
-})
-
-app.controller('mailCtrl', function($scope, $modal, sapService, $window, toaster, $state, $stateParams){
-
-  $scope.send = function() {
-    sapService.sendMail({data : $scope.mail}, function(data){
-      toaster.pop({"type":"success","title":"Email Sent Successfully"});
-      //$state.go('user-list');
-    });
-  }
-
-  $scope.cancel = function() {
-    $state.go('user-list');
   }
   
 })
