@@ -1,0 +1,10 @@
+{
+    "pagination": {
+        "PAGE": 0,
+        "LIMIT": 10
+    },
+    "mail" : {
+    	"smtp" : "smtps://sap.gis123%40gmail.com:qwer%40123@smtp.gmail.com",
+    	"from" : "noreply@sap.com"
+    }
+}

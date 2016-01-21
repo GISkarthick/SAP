@@ -1,27 +1,99 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'start' ]
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'install' ]
 2 info using npm@1.4.28
-3 info using node@v0.10.40
-4 verbose node symlink /usr/bin/node
-5 verbose run-script [ 'prestart', 'start', 'poststart' ]
-6 info prestart strategy@0.0.0
-7 info start strategy@0.0.0
-8 verbose unsafe-perm in lifecycle true
-9 info strategy@0.0.0 Failed to exec start script
-10 error strategy@0.0.0 start: `node ./bin/www`
-10 error Exit status 8
-11 error Failed at the strategy@0.0.0 start script.
-11 error This is most likely a problem with the strategy package,
-11 error not with npm itself.
-11 error Tell the author that this fails on your system:
-11 error     node ./bin/www
-11 error You can get their info via:
-11 error     npm owner ls strategy
-11 error There is likely additional logging output above.
-12 error System Linux 3.19.0-28-generic
-13 error command "/usr/bin/node" "/usr/bin/npm" "start"
-14 error cwd /home/ramprasath/Documents/New module micro service/actionplan/Services/strategy
-15 error node -v v0.10.40
-16 error npm -v 1.4.28
-17 error code ELIFECYCLE
-18 verbose exit [ 1, true ]
+3 info using node@v0.10.36
+4 verbose readDependencies using package.json deps
+5 verbose install where, deps [ '/home/ramprasath/Documents/New module micro service/SAP/Services/strategy',
+5 verbose install   [ 'bunyan',
+5 verbose install     'pigato',
+5 verbose install     'debug',
+5 verbose install     'express',
+5 verbose install     'jade',
+5 verbose install     'express-session',
+5 verbose install     'passport',
+5 verbose install     'mongoose',
+5 verbose install     'nodemailer',
+5 verbose install     'pdfMake' ] ]
+6 info preinstall strategy@0.0.0
+7 verbose readDependencies using package.json deps
+8 verbose already installed skipping bunyan@^1.3.5 /home/ramprasath/Documents/New module micro service/SAP/Services/strategy
+9 verbose already installed skipping pigato@0.0.38 /home/ramprasath/Documents/New module micro service/SAP/Services/strategy
+10 verbose already installed skipping debug@~2.1.1 /home/ramprasath/Documents/New module micro service/SAP/Services/strategy
+11 verbose already installed skipping express@~4.12.2 /home/ramprasath/Documents/New module micro service/SAP/Services/strategy
+12 verbose already installed skipping jade@~1.9.2 /home/ramprasath/Documents/New module micro service/SAP/Services/strategy
+13 verbose already installed skipping express-session@~1.11.2 /home/ramprasath/Documents/New module micro service/SAP/Services/strategy
+14 verbose already installed skipping passport@~0.2.1 /home/ramprasath/Documents/New module micro service/SAP/Services/strategy
+15 verbose already installed skipping mongoose@~4.0.3 /home/ramprasath/Documents/New module micro service/SAP/Services/strategy
+16 verbose already installed skipping nodemailer@^2.0.0 /home/ramprasath/Documents/New module micro service/SAP/Services/strategy
+17 verbose cache add [ 'pdfMake@^0.1.18', null ]
+18 verbose cache add name=undefined spec="pdfMake@^0.1.18" args=["pdfMake@^0.1.18",null]
+19 verbose parsed url { protocol: null,
+19 verbose parsed url   slashes: null,
+19 verbose parsed url   auth: null,
+19 verbose parsed url   host: null,
+19 verbose parsed url   port: null,
+19 verbose parsed url   hostname: null,
+19 verbose parsed url   hash: null,
+19 verbose parsed url   search: null,
+19 verbose parsed url   query: null,
+19 verbose parsed url   pathname: 'pdfMake@^0.1.18',
+19 verbose parsed url   path: 'pdfMake@^0.1.18',
+19 verbose parsed url   href: 'pdfMake@^0.1.18' }
+20 verbose cache add name="pdfMake" spec="^0.1.18" args=["pdfMake","^0.1.18"]
+21 verbose parsed url { protocol: null,
+21 verbose parsed url   slashes: null,
+21 verbose parsed url   auth: null,
+21 verbose parsed url   host: null,
+21 verbose parsed url   port: null,
+21 verbose parsed url   hostname: null,
+21 verbose parsed url   hash: null,
+21 verbose parsed url   search: null,
+21 verbose parsed url   query: null,
+21 verbose parsed url   pathname: '^0.1.18',
+21 verbose parsed url   path: '^0.1.18',
+21 verbose parsed url   href: '^0.1.18' }
+22 verbose addNamed [ 'pdfMake', '^0.1.18' ]
+23 verbose addNamed [ null, '>=0.1.18-0 <0.2.0-0' ]
+24 silly lockFile d43f518f-pdfMake-0-1-18 pdfMake@^0.1.18
+25 verbose lock pdfMake@^0.1.18 /home/ramprasath/.npm/d43f518f-pdfMake-0-1-18.lock
+26 silly addNameRange { name: 'pdfMake', range: '>=0.1.18-0 <0.2.0-0', hasData: false }
+27 verbose request where is /pdfMake
+28 verbose request registry https://registry.npmjs.org/
+29 verbose request id 7d99ab3f4df9acfc
+30 verbose url raw /pdfMake
+31 verbose url resolving [ 'https://registry.npmjs.org/', './pdfMake' ]
+32 verbose url resolved https://registry.npmjs.org/pdfMake
+33 verbose request where is https://registry.npmjs.org/pdfMake
+34 info trying registry request attempt 1 at 16:15:30
+35 http GET https://registry.npmjs.org/pdfMake
+36 http 404 https://registry.npmjs.org/pdfMake
+37 silly registry.get cb [ 404,
+37 silly registry.get   { 'content-type': 'application/json',
+37 silly registry.get     'cache-control': 'max-age=0',
+37 silly registry.get     'content-length': '2',
+37 silly registry.get     'accept-ranges': 'bytes',
+37 silly registry.get     date: 'Thu, 21 Jan 2016 10:45:37 GMT',
+37 silly registry.get     via: '1.1 varnish',
+37 silly registry.get     age: '0',
+37 silly registry.get     connection: 'keep-alive',
+37 silly registry.get     'x-served-by': 'cache-sin6924-SIN',
+37 silly registry.get     'x-cache': 'MISS',
+37 silly registry.get     'x-cache-hits': '0',
+37 silly registry.get     'x-timer': 'S1453373136.700644,VS0,VE366' } ]
+38 silly lockFile d43f518f-pdfMake-0-1-18 pdfMake@^0.1.18
+39 silly lockFile d43f518f-pdfMake-0-1-18 pdfMake@^0.1.18
+40 error 404 Not Found
+40 error 404
+40 error 404 'pdfMake' is not in the npm registry.
+40 error 404 You should bug the author to publish it
+40 error 404 It was specified as a dependency of 'strategy'
+40 error 404
+40 error 404 Note that you can also install from a
+40 error 404 tarball, folder, or http url, or git url.
+41 error System Linux 3.13.0-32-generic
+42 error command "/usr/local/bin/node" "/usr/local/bin/npm" "install"
+43 error cwd /home/ramprasath/Documents/New module micro service/SAP/Services/strategy
+44 error node -v v0.10.36
+45 error npm -v 1.4.28
+46 error code E404
+47 verbose exit [ 1, true ]

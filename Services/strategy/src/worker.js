@@ -10,12 +10,14 @@ var officeManager = require('./manager/officeManager');
 var practiceManager = require('./manager/practiceManager');
 var regionManager = require('./manager/regionManager');
 var auditManager = require('./manager/auditManager');
+var emailManager = require('./manager/emailManager');
 
 var worker = new Worker(env_config.brokerHost, 'other');
 var worker_user = new Worker(env_config.brokerHost, 'user');
 var worker_strategy = new Worker(env_config.brokerHost, 'strategy');
 var worker_strategyAction = new Worker(env_config.brokerHost, 'strategyaction');
 var worker_qlist = new Worker(env_config.brokerHost, 'qlist');
+var worker_mail = new Worker(env_config.brokerHost, 'email');
 var worker_audit = new Worker(env_config.brokerHost, 'audit');
 
 worker.on('error', function(e) {
@@ -31,6 +33,9 @@ worker_strategyAction.on('error', function(e) {
   log.error('Worker error', e);
 });
 worker_qlist.on('error', function(e) {
+  log.error('Worker error', e);
+});
+worker_mail.on('error', function(e) {
   log.error('Worker error', e);
 });
 worker_audit.on('error', function(e) {
@@ -200,6 +205,12 @@ worker_strategy.on('request', function(input, rep) {
         rep.end({result: strategy, error: err});
       });
       break;
+    case 'getStrategyPagination':
+      log.info('Finding strategy...');
+      strategyManager.getStrategyPagination(input.params.strategyData, input.params.userId, function(err, strategy) {
+        rep.end({result: strategy, error: err});
+      });
+      break;  
     case 'searchStrategy':
       log.info('Finding strategy...');
       strategyManager.searchStrategy(input.params.strategyData, input.params.userId, function(err, strategy) {
@@ -312,6 +323,20 @@ worker_qlist.on('request', function(input, rep) {
   }
 });
 
+worker_mail.on('request', function(input, rep) {
+  log.info('Worker request', input);
+
+  switch(input.op) {
+    case 'sendMail':
+      log.info('Finding qlist...');
+      emailManager.sendMail(input.params.emailData, function(err, emailData) {
+        rep.end({result: emailData, error: err});
+      });
+      break;  
+          
+  }
+});
+
 worker_audit.on('request', function(input, rep) {
   log.info('Worker request', input);
 
@@ -334,6 +359,7 @@ module.exports = {
     worker_user.start();
     worker_strategyAction.start();
     worker_qlist.start();
+    worker_mail.start();
     worker_audit.start();
   }
 };

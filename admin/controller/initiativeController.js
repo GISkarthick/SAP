@@ -1,9 +1,13 @@
 
 app.controller('initiativeCtrl', function($scope, sapService, $window, toaster, $state){	
 	
+  $scope.currentPage = 1;
+  $scope.limit = 10;
+
   $scope.listInitiative = function (){
-    sapService.getInitiative(null, $scope.searchName, function(data){
-      $scope.initiativeList = data;
+    sapService.getInitiative(null, $scope.searchName, $scope.currentPage, $scope.limit, function(data){
+      $scope.initiativeList = data.data;
+      $scope.totalPages = data.pages;
     });
   }
 
@@ -20,6 +24,12 @@ app.controller('initiativeCtrl', function($scope, sapService, $window, toaster, 
     }
   }
 
+  $scope.nextPage = function (page){
+    $scope.currentPage = page;
+    //List all office
+    $scope.listInitiative();
+  }
+
   //List all Initiative
   $scope.listInitiative(); 
 
@@ -30,7 +40,7 @@ app.controller('initiativeAddCtrl', function($scope, sapService, $window, toaste
   $scope.id = $stateParams.id;
 
   $scope.populate = function(id) {
-    sapService.getInitiative(id, null, function(data){
+    sapService.getInitiative(id, null, null, null, function(data){
       $scope.initiative = data;
     });
   }

@@ -43,6 +43,9 @@ module.exports = {
     getStrategy: function(strategyData, userId, callback) {
       clientRequest('strategy', 'getStrategy', {strategyData: strategyData, userId: userId}, callback);
     },
+    getStrategyPagination: function(strategyData, userId, callback) {
+      clientRequest('strategy', 'getStrategyPagination', {strategyData: strategyData, userId: userId}, callback);
+    },
     getStrategyByQlist: function(qlistname, userId, callback) {
       clientRequest('strategy', 'getStrategyByQlist', {qlistname: qlistname, userId: userId}, callback);
     },
@@ -141,6 +144,11 @@ module.exports = {
     },
     deleteRegion: function(id, userId, callback) {
       clientRequest('other', 'deleteRegion', {id: id, userId: userId}, callback);
+    }
+  },
+  email: {
+    sendMail: function(emailData, callback) {
+      clientRequest('email', 'sendMail', {emailData: emailData}, callback);
     }
   },
   audit: {

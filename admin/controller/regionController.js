@@ -1,9 +1,13 @@
 
 app.controller('regionCtrl', function($scope, sapService, $window, toaster, $state){
 
+  $scope.currentPage = 1;
+  $scope.limit = 10;
+
   $scope.listRegion = function (){
-  	sapService.getRegion(null, $scope.searchName, function(data){
-      $scope.regionList = data;
+  	sapService.getRegion(null, $scope.searchName, $scope.currentPage, $scope.limit, function(data){
+      $scope.regionList = data.data;
+      $scope.totalPages = data.pages;
     });
   }
 
@@ -20,6 +24,12 @@ app.controller('regionCtrl', function($scope, sapService, $window, toaster, $sta
     }
   }
 
+  $scope.nextPage = function (page){
+    $scope.currentPage = page;
+    //List all office
+    $scope.listRegion();
+  }
+
   //List all Region
   $scope.listRegion();
 
@@ -30,7 +40,7 @@ app.controller('regionAddCtrl', function($scope, sapService, $window, toaster, $
   $scope.id = $stateParams.id;
 
   $scope.populate = function(id) {
-    sapService.getRegion(id, null, function(data){
+    sapService.getRegion(id, null, null, null, function(data){
       $scope.region = data;
     });
   }

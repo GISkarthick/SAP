@@ -1,13 +1,16 @@
 app.service('sapService', function(apiFactory){
 	
 	//Office CRUD operation
-	this.getOffice = function(id, name, callback) {
+	this.getOffice = function(id, name, page, limit, callback) {
 		var param = '';
 		if(id){
 			param = '?id=' + id;
 		}
-		else if(name){
-			param = '?name=' + name;
+		else{
+			param = '?page=' + page + '&limit=' + limit;
+			if(name){
+				param = param + '&name=' + name;
+			}
 		}
 	   	apiFactory.get('office' + param).then(function(results) {
 	        callback(results);
@@ -33,13 +36,16 @@ app.service('sapService', function(apiFactory){
    	};
 
    	// Region CRUD operation
-   	this.getRegion = function(id, name, callback) {
+   	this.getRegion = function(id, name, page, limit, callback) {
    		var param = '';
 		if(id){
 			param = '?id=' + id;
 		}
-		else if(name){
-			param = '?name=' + name;
+		else{
+			param = '?page=' + page + '&limit=' + limit;
+			if(name){
+				param = param + '&name=' + name;
+			}
 		}
 	   	apiFactory.get('region' + param).then(function(results) {
 	        callback(results);
@@ -65,13 +71,16 @@ app.service('sapService', function(apiFactory){
    	};
 
 	// Practice CRUD operation
-   	this.getPractice = function(id, name, callback) {
+   	this.getPractice = function(id, name, page, limit, callback) {
    		var param = '';
 		if(id){
 			param = '?id=' + id;
 		}
-		else if(name){
-			param = '?name=' + name;
+		else{
+			param = '?page=' + page + '&limit=' + limit;
+			if(name){
+				param = param + '&name=' + name;
+			}
 		}
 	   	apiFactory.get('practice' + param).then(function(results) {
 	        callback(results);
@@ -97,13 +106,16 @@ app.service('sapService', function(apiFactory){
    	};
 
    	// Initiative CRUD operation
-   	this.getInitiative = function(id, name, callback) {
+   	this.getInitiative = function(id, name, page, limit, callback) {
    		var param = '';
 		if(id){
 			param = '?id=' + id;
 		}
-		else if(name){
-			param = '?name=' + name;
+		else{
+			param = '?page=' + page + '&limit=' + limit;
+			if(name){
+				param = param + '&name=' + name;
+			}
 		}
 	   	apiFactory.get('initiative' + param).then(function(results) {
 	        callback(results);
@@ -129,13 +141,16 @@ app.service('sapService', function(apiFactory){
    	};
 
    	// User CRUD operation
-   	this.getUser = function(id, name, callback) {
+   	this.getUser = function(id, name, page, limit, callback) {
 		var param = '';
 		if(id){
 			param = '?id=' + id;
 		}
-		else if(name){
-			param = '?name=' + name;
+		else{
+			param = '?page=' + page + '&limit=' + limit;
+			if(name){
+				param = param + '&name=' + name;
+			}
 		}
 	   	apiFactory.get('profile' + param).then(function(results) {
 	        callback(results);
@@ -156,6 +171,12 @@ app.service('sapService', function(apiFactory){
 
    	this.deleteUser = function(id, callback) {
 	   	apiFactory.delete('profile/' + id).then(function(results) {
+	        callback(results);
+	    });
+   	};
+
+   	this.sendMail = function (data, callback){
+   		apiFactory.post('sendmail', data).then(function(results) {
 	        callback(results);
 	    });
    	};

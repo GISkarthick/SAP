@@ -228,6 +228,21 @@ app.config(function($stateProvider, $ocLazyLoadProvider, $locationProvider) {
                 })
             }
         }
+    })
+    .state('mail-compose',{
+        url:'/email',
+        controller: 'mailCtrl',
+        templateUrl:'views/mail-compose.html',
+        resolve: {
+            loadMyFiles:function($ocLazyLoad) {
+                return $ocLazyLoad.load({
+                  name:'greatInnovusModule',
+                  files:[
+                    'controller/userController.js',
+                  ]
+                })
+            }
+        }
     });
 
 });

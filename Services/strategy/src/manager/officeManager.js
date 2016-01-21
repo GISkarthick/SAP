@@ -1,7 +1,10 @@
 var express = require('express');
 var log = require('../log');
 var officeModel  = require('./../model/officeModel');
+var env_const = require('../../config/const.json');
 var router = express.Router();
+var PAGE = env_const.pagination.PAGE;
+var LIMIT = env_const.pagination.LIMIT;
 
 module.exports = {
   getOffice: getOffice,
@@ -14,10 +17,17 @@ module.exports = {
 function getOffice(userInput, callback) {
   var id = userInput['id'];
   var name = userInput['name'];
+  var currentPage = PAGE;
   if(id) {
     officeModel.findById(id).exec(callback);
   }  
   else {
+    if(userInput.hasOwnProperty('page') && parseInt(userInput['page']) > 0){
+      if(userInput.hasOwnProperty('limit') && parseInt(userInput['limit']) > 0){
+        LIMIT = parseInt(userInput['limit']);
+      }
+      currentPage = (parseInt(userInput['page'])-1) * LIMIT;
+    }
     var query = {isDeleted: false};
     if(name){
       query = {   
@@ -34,7 +44,19 @@ function getOffice(userInput, callback) {
       }; 
     }
     
-    officeModel.find(query).exec(callback);
+    if(userInput.hasOwnProperty('page') && parseInt(userInput['page']) > 0){
+      officeModel.find(query).skip(currentPage).limit(LIMIT).exec(function(err, data) {
+        officeModel.count(query).exec(function(counterr, count) {
+          var totalpage = Math.ceil(count/LIMIT);
+          var obj = {"pages" : totalpage, "data" : data};
+          callback(err,obj);
+        });
+      });
+    }
+    else{
+      officeModel.find(query).exec(callback);
+    }
+    
   }
 }
 

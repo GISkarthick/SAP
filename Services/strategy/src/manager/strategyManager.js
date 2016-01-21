@@ -1,7 +1,10 @@
 var express = require('express');
 var log = require('../log');
 var strategyModel  = require('./../model/strategyModel');
+var env_const = require('../../config/const.json');
 var router = express.Router();
+var PAGE = env_const.pagination.PAGE;
+var LIMIT = env_const.pagination.LIMIT;
 
 module.exports = {
   getStrategy: getStrategy,
@@ -9,7 +12,8 @@ module.exports = {
   editStrategy: editStrategy,
   deleteStrategy: deleteStrategy,
   addActionCount : addActionCount,
-  searchStrategy : searchStrategy
+  searchStrategy : searchStrategy,
+  getStrategyPagination : getStrategyPagination
 };
 
 
@@ -51,6 +55,69 @@ function getStrategy(userInput, userId, callback) {
     .populate('practiceId', '_id ID PracticeName')
     .populate('regionId', '_id ID RegionName')
     .populate('team', '-password').populate('owner', '-password').exec(callback);
+  }
+}
+
+function getStrategyPagination(userInput, userId, callback) {
+  var id = userInput['id'];
+  var sortBy = userInput['sortby'];
+  var asc = userInput['asc'];
+  var currentPage = PAGE;
+  var query = {isDeleted: false};
+  if(id) {
+    strategyModel.findById(id).populate('officeId', '_id ID OfficeName')
+    .populate('initiativeId', '_id ID InitiativeName')
+    .populate('practiceId', '_id ID PracticeName')
+    .populate('regionId', '_id ID RegionName')
+    .populate('team', '-password').populate('owner', '-password').exec(callback);
+  }  
+  else {
+    if(userInput.hasOwnProperty('page') && parseInt(userInput['page']) > 0){
+      if(userInput.hasOwnProperty('limit') && parseInt(userInput['limit']) > 0){
+        LIMIT = parseInt(userInput['limit']);
+      }
+      currentPage = (parseInt(userInput['page'])-1) * LIMIT;
+    }
+    var sortQuery = {lastModified: -1};
+    var sortType = -1;  
+    if(sortBy){
+      console.log(sortBy)
+      if(asc == 1){
+        sortType = 1;
+      }
+      console.log(sortType)
+      if(sortBy == "strategyName"){
+        sortQuery = {strategyName: sortType};
+      }
+      else if(sortBy == "status"){
+        sortQuery = {status: sortType};
+      }
+      else if(sortBy == "priorityId"){
+        sortQuery = {priorityId: sortType};
+      }
+    }
+    console.log(sortQuery)
+    if(userInput.hasOwnProperty('page') && parseInt(userInput['page']) > 0){
+      strategyModel.find(query).sort(sortQuery).skip(currentPage).limit(LIMIT).populate('officeId', '_id ID OfficeName')
+    .populate('initiativeId', '_id ID InitiativeName')
+    .populate('practiceId', '_id ID PracticeName')
+    .populate('regionId', '_id ID RegionName')
+    .populate('team', '-password').populate('owner', '-password').exec(function(err, data) {
+        strategyModel.count(query).exec(function(counterr, count) {
+          var totalpage = Math.ceil(count/LIMIT);
+          var obj = {"pages" : totalpage, "data" : data};
+          callback(err,obj);
+        });
+      });
+    }
+    else{
+      strategyModel.find(query).sort(sortQuery).populate('officeId', '_id ID OfficeName')
+    .populate('initiativeId', '_id ID InitiativeName')
+    .populate('practiceId', '_id ID PracticeName')
+    .populate('regionId', '_id ID RegionName')
+    .populate('team', '-password').populate('owner', '-password').exec(callback);
+    }
+    
   }
 }
 

@@ -1,9 +1,13 @@
 
 app.controller('practiceCtrl', function($scope, sapService, $window, toaster, $state){	
 	
+  $scope.currentPage = 1;
+  $scope.limit = 10;
+
   $scope.listPractice = function (){
-    sapService.getPractice(null, $scope.searchName, function(data){
-      $scope.practiceList = data;
+    sapService.getPractice(null, $scope.searchName, $scope.currentPage, $scope.limit, function(data){
+      $scope.practiceList = data.data;
+      $scope.totalPages = data.pages;
     });
   }
 
@@ -20,6 +24,12 @@ app.controller('practiceCtrl', function($scope, sapService, $window, toaster, $s
     }
   }
 
+  $scope.nextPage = function (page){
+    $scope.currentPage = page;
+    //List all office
+    $scope.listPractice();
+  }
+
   //List all Practice
   $scope.listPractice();
 
@@ -30,7 +40,7 @@ app.controller('practiceAddCtrl', function($scope, sapService, $window, toaster,
   $scope.id = $stateParams.id;
 
   $scope.populate = function(id) {
-    sapService.getPractice(id, null, function(data){
+    sapService.getPractice(id, null, null, null, function(data){
       $scope.practice = data;
     });
   }

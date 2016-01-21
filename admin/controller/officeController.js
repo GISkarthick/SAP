@@ -1,8 +1,12 @@
 app.controller('officeCtrl', function($scope, sapService, $window, toaster, $state){
 
+  $scope.currentPage = 1;
+  $scope.limit = 10;
+
   $scope.listOffice = function (){
-    sapService.getOffice(null, $scope.searchName, function(data){
-      $scope.officeList = data;
+    sapService.getOffice(null, $scope.searchName, $scope.currentPage, $scope.limit, function(data){
+      $scope.officeList = data.data;
+      $scope.totalPages = data.pages;
     });
   }
 
@@ -19,6 +23,12 @@ app.controller('officeCtrl', function($scope, sapService, $window, toaster, $sta
     }
   }
 
+  $scope.nextPage = function (page){
+    $scope.currentPage = page;
+    //List all office
+    $scope.listOffice();
+  }
+
   //List all office
   $scope.listOffice(); 
 	
@@ -29,7 +39,7 @@ app.controller('officeAddCtrl', function($scope, sapService, $window, toaster, $
   $scope.id = $stateParams.id; 
   
   $scope.populate = function(id) {
-    sapService.getOffice(id, null, function(data){
+    sapService.getOffice(id, null, null, null, function(data){
       $scope.office = data;
     });
   }
