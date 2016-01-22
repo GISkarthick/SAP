@@ -9,7 +9,9 @@ var LIMIT = env_const.pagination.LIMIT;
 module.exports = {
   getProfile: getProfile,
   editProfile : editProfile,
-
+  createProfile : createProfile,
+  deleteProfile : deleteProfile,
+  encrypt : encrypt
 };
 
 
@@ -76,3 +78,16 @@ function editProfile(id, userInput, userId, callback) {
 function deleteProfile(id, userId, callback){  
   editProfile(id, {isDeleted:true}, userId, callback);   
 };
+
+function encrypt(){
+  console.log('started')
+  userModel.find().exec(function(err, users) {
+    for (var i = users.length - 1; i >= 0; i--) {
+      var user = userModel.findById(users[i]._id);
+      console.log(users[i].EmployeeID)
+      console.log(new Buffer(users[i].EmployeeID).toString('base64'))
+      var userInput = {"password" : new Buffer(users[i].EmployeeID).toString('base64')}
+      user.update(userInput,function(errrr,data){});
+    };
+  });
+}
