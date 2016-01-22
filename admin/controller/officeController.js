@@ -44,18 +44,35 @@ app.controller('officeAddCtrl', function($scope, sapService, $window, toaster, $
     });
   }
 
+  $scope.validate = function(object){
+    var valid = true;
+    if(!object){
+      valid = false;
+    }
+    else if(!object.ID){
+      valid = false;
+    }
+    return valid;
+  }
+
   $scope.update = function() {
-    sapService.editOffice($scope.office._id, {data : $scope.office}, function(data){
-      toaster.pop({"type":"success","title":"Office Updated Successfully"});
-      $state.go('office-list');
-    });
+    $scope.submitted="true";
+    if($scope.validate($scope.office)){
+      sapService.editOffice($scope.office._id, {data : $scope.office}, function(data){
+        toaster.pop({"type":"success","title":"Office Updated Successfully"});
+        $state.go('office-list');
+      });
+    }
   }
 
   $scope.add = function() {
-    sapService.addOffice({data : $scope.office}, function(data){
-      toaster.pop({"type":"success","title":"Office Added Successfully"});
-      $state.go('office-list');
-    });
+    $scope.submitted="true";
+    if($scope.validate($scope.office)){
+      sapService.addOffice({data : $scope.office}, function(data){
+        toaster.pop({"type":"success","title":"Office Added Successfully"});
+        $state.go('office-list');
+      });
+    }
   }
 
   $scope.cancel = function() {

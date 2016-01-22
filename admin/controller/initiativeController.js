@@ -45,18 +45,35 @@ app.controller('initiativeAddCtrl', function($scope, sapService, $window, toaste
     });
   }
 
+  $scope.validate = function(object){
+    var valid = true;
+    if(!object){
+      valid = false;
+    }
+    else if(!object.ID){
+      valid = false;
+    }
+    return valid;
+  }
+
   $scope.update = function() {
-    sapService.editInitiative($scope.initiative._id, {data : $scope.initiative}, function(data){
-      toaster.pop({"type":"success","title":"Initiative Updated Successfully"});
-      $state.go('initiative-list');
-    });
+    $scope.submitted="true";
+    if($scope.validate($scope.initiative)){
+      sapService.editInitiative($scope.initiative._id, {data : $scope.initiative}, function(data){
+        toaster.pop({"type":"success","title":"Initiative Updated Successfully"});
+        $state.go('initiative-list');
+      });
+    }
   }
 
   $scope.add = function() {
-    sapService.addInitiative({data : $scope.initiative}, function(data){
-      toaster.pop({"type":"success","title":"Initiative Added Successfully"});
-      $state.go('initiative-list');
-    });
+    $scope.submitted="true";
+    if($scope.validate($scope.initiative)){
+      sapService.addInitiative({data : $scope.initiative}, function(data){
+        toaster.pop({"type":"success","title":"Initiative Added Successfully"});
+        $state.go('initiative-list');
+      });
+    }
   }
 
   $scope.cancel = function() {

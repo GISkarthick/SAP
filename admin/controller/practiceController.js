@@ -45,18 +45,35 @@ app.controller('practiceAddCtrl', function($scope, sapService, $window, toaster,
     });
   }
 
+  $scope.validate = function(object){
+    var valid = true;
+    if(!object){
+      valid = false;
+    }
+    else if(!object.ID){
+      valid = false;
+    }
+    return valid;
+  }
+
   $scope.update = function() {
-    sapService.editPractice($scope.practice._id, {data : $scope.practice}, function(data){
-      toaster.pop({"type":"success","title":"Practice Updated Successfully"});
-      $state.go('practice-list');
-    });
+    $scope.submitted="true";
+    if($scope.validate($scope.practice)){
+      sapService.editPractice($scope.practice._id, {data : $scope.practice}, function(data){
+        toaster.pop({"type":"success","title":"Practice Updated Successfully"});
+        $state.go('practice-list');
+      });
+    }
   }
 
   $scope.add = function() {
-    sapService.addPractice({data : $scope.practice}, function(data){
-      toaster.pop({"type":"success","title":"Practice Added Successfully"});
-      $state.go('practice-list');
-    });
+    $scope.submitted="true";
+    if($scope.validate($scope.practice)){
+      sapService.addPractice({data : $scope.practice}, function(data){
+        toaster.pop({"type":"success","title":"Practice Added Successfully"});
+        $state.go('practice-list');
+      });
+    }
   }
 
   $scope.cancel = function() {

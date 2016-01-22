@@ -103,18 +103,35 @@ app.controller('userAddCtrl', function($scope, $modal, sapService, $window, toas
     });
   }
 
+  $scope.validate = function(object){
+    var valid = true;
+    if(!object){
+      valid = false;
+    }
+    else if(!object.EmployeeID){
+      valid = false;
+    }
+    return valid;
+  }
+
   $scope.update = function() {
-    sapService.editUser($scope.user._id, {data : $scope.user}, function(data){
-      toaster.pop({"type":"success","title":"User Updated Successfully"});
-      $state.go('user-list');
-    });
+    $scope.submitted="true";
+    if($scope.validate($scope.user)){
+      sapService.editUser($scope.user._id, {data : $scope.user}, function(data){
+        toaster.pop({"type":"success","title":"User Updated Successfully"});
+        $state.go('user-list');
+      });
+    }
   }
 
   $scope.add = function() {
-    sapService.addUser({data : $scope.user}, function(data){
-      toaster.pop({"type":"success","title":"User Added Successfully"});
-      $state.go('user-list');
-    });
+    $scope.submitted="true";
+    if($scope.validate($scope.user)){
+      sapService.addUser({data : $scope.user}, function(data){
+        toaster.pop({"type":"success","title":"User Added Successfully"});
+        $state.go('user-list');
+      });
+    }
   }
 
   $scope.cancel = function() {

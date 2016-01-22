@@ -10,8 +10,7 @@ module.exports = {
   getProfile: getProfile,
   editProfile : editProfile,
   createProfile : createProfile,
-  deleteProfile : deleteProfile,
-  encrypt : encrypt
+  deleteProfile : deleteProfile
 };
 
 
@@ -79,7 +78,7 @@ function deleteProfile(id, userId, callback){
   editProfile(id, {isDeleted:true}, userId, callback);   
 };
 
-function encrypt(){
+/*function encrypt(){
   console.log('started')
   userModel.find().exec(function(err, users) {
     for (var i = users.length - 1; i >= 0; i--) {
@@ -90,4 +89,4 @@ function encrypt(){
       user.update(userInput,function(errrr,data){});
     };
   });
-}
+}*/

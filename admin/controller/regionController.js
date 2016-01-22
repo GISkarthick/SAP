@@ -45,18 +45,35 @@ app.controller('regionAddCtrl', function($scope, sapService, $window, toaster, $
     });
   }
 
+  $scope.validate = function(object){
+    var valid = true;
+    if(!object){
+      valid = false;
+    }
+    else if(!object.ID){
+      valid = false;
+    }
+    return valid;
+  }
+
   $scope.update = function() {
-    sapService.editRegion($scope.region._id, {data : $scope.region}, function(data){
-      toaster.pop({"type":"success","title":"Region Updated Successfully"});
-      $state.go('region-list');
-    });
+    $scope.submitted="true";
+    if($scope.validate($scope.region)){
+      sapService.editRegion($scope.region._id, {data : $scope.region}, function(data){
+        toaster.pop({"type":"success","title":"Region Updated Successfully"});
+        $state.go('region-list');
+      });
+    }
   }
 
   $scope.add = function() {
-    sapService.addRegion({data : $scope.region}, function(data){
-      toaster.pop({"type":"success","title":"Region Added Successfully"});
-      $state.go('region-list');
-    });
+    $scope.submitted="true";
+    if($scope.validate($scope.region)){
+      sapService.addRegion({data : $scope.region}, function(data){
+        toaster.pop({"type":"success","title":"Region Added Successfully"});
+        $state.go('region-list');
+      });
+    }
   }
 
   $scope.cancel = function() {
