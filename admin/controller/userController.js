@@ -76,7 +76,7 @@ app.controller('userCtrl', function($scope, $modal, sapService, $window, toaster
 
       sapService.sendMail(fd, function(data){
         toaster.pop({"type":"success","title":"Email Sent Successfully"});
-        //$state.go('user-list');
+        $state.go('user-list');
       });
     });
     
