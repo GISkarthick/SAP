@@ -2,8 +2,8 @@ var services = require('../services/clientservice.js');
 var authentication = require('../services/authentication.js');
 
 module.exports = function(server) {
-  server.get('/strategy', getStrategy);
-  server.get('/strategypagination', getStrategyPagination);
+  server.get('/strategy', getStrategyPagination);
+  // server.get('/strategypagination', getStrategyPagination);
   server.get('/strategy/:qlistname', getStrategyByQlist);
   server.post('/strategysearch', searchStrategy);
   server.put('/strategy', createStrategy);
