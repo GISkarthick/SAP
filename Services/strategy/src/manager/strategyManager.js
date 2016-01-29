@@ -183,8 +183,8 @@ function generateSearchQuery(query, userInput){
     query['initiativeId'] = { "$in" : userInput['initiativeId'] };
   }
   if(userInput['priorityId']){
-    //var priorityArray = userInput['priorityId'].split(',');
-    query['priorityId'] = userInput['priorityId'];
+    //var priorityArray = userInput['priorityId'].split(',');userInput['priorityId'];
+    query['priorityId'] = env_config.priorityIdValues[userInput.priorityId.toLowerCase()];
   }
   if(userInput['status']){
     var range = userInput['status'].split('-');

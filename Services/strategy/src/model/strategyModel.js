@@ -29,45 +29,46 @@ var strategySchema = mongoose.Schema({
 function getpriorityIdValue(Value) {
     return env_config.priorityIdValue[Value-1];
 }
-strategySchema.pre('save', function (next) {
-  // update the value
-  this.priorityId=env_config.priorityIdValues[this.priorityId.toLowerCase()];
-  next();
+strategySchema.pre('save', function(next) {
+    // update the value
+    if (this.priorityId) {
+        this.priorityId = env_config.priorityIdValues[this.priorityId.toLowerCase()];
+    }
+    next();
 })
-strategySchema.post('save', function (strategy) {
-  // update the value lable
-  strategy.priorityId=getpriorityIdValue(+strategy.priorityId);
-  // next();
+strategySchema.post('save', function(strategy) {
+    // update the value lable
+    strategy.priorityId = getpriorityIdValue(+strategy.priorityId);
+    // next();
 })
-strategySchema.pre('update', function (next) {
-  // update the value
-  // this.priorityId=env_config.priorityIdValues[this.priorityId.toLowerCase()];
-  next();
+strategySchema.pre('update', function(next) {
+    // update the value
+    // this.priorityId=env_config.priorityIdValues[this.priorityId.toLowerCase()];
+    next();
 })
-strategySchema.post('update', function (next) {
-  // update the value lable
- // console.log(strategy); 
-// strategy.priorityId=getpriorityIdValue(+strategy.priorityId);
-  next();
+strategySchema.post('update', function(next) {
+    // update the value lable
+    // console.log(strategy); 
+    // strategy.priorityId=getpriorityIdValue(+strategy.priorityId);
+    next();
 })
 strategySchema.post('findOne', function(doc) {
-  // update the value lable
-  doc.priorityId=getpriorityIdValue(+doc.priorityId);
+    // update the value lable
+    if (doc) {
+        doc.priorityId = getpriorityIdValue(+doc.priorityId);
+    }
 });
 strategySchema.post('find', function(doc) {
-  // update the value lable
-  for(var j = 0, length2 = doc.length; j < length2; j++){
-    doc[j].priorityId=getpriorityIdValue(+doc[j].priorityId);
-  }
+    // update the value lable
+    for (var j = 0, length2 = doc.length; j < length2; j++) {
+        doc[j].priorityId = getpriorityIdValue(+doc[j].priorityId);
+    }
 });
-strategySchema.pre('findOne', function(doc) {
-  // update the value lable
-  this.priorityId=env_config.priorityIdValues[this.priorityId.toLowerCase()];
+strategySchema.pre('findOne', function(next) {
+    // update the value lable
+    if (this.priorityId) {
+        this.priorityId = env_config.priorityIdValues[this.priorityId.toLowerCase()];
+    }
+    next();
 });
-// strategySchema.pre('find', function(doc) {
-//   // update the value lable
-//   for(var j = 0, length2 = doc.length; j < length2; j++){
-//     doc[j].priorityId=getpriorityIdValue(+doc[j].priorityId);
-//   }
-// });
 module.exports = mongoose.model('strategy', strategySchema);
