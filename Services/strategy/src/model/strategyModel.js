@@ -48,7 +48,7 @@ strategySchema.post('update', function (strategy) {
   // update the value lable
  // console.log(strategy); 
 // strategy.priorityId=getpriorityIdValue(+strategy.priorityId);
-  // next();
+  next();
 })
 strategySchema.post('findOne', function(doc) {
   // update the value lable
