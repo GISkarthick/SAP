@@ -44,7 +44,7 @@ strategySchema.pre('update', function (next) {
   // this.priorityId=env_config.priorityIdValues[this.priorityId.toLowerCase()];
   next();
 })
-strategySchema.post('update', function (strategy) {
+strategySchema.post('update', function (next) {
   // update the value lable
  // console.log(strategy); 
 // strategy.priorityId=getpriorityIdValue(+strategy.priorityId);
