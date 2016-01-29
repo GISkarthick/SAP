@@ -1,6 +1,7 @@
 var express = require('express');
 var log = require('../log');
 var strategyModel  = require('./../model/strategyModel');
+var env_config = require('../../config/config');
 var env_const = require('../../config/const.json');
 var router = express.Router();
 var PAGE = env_const.pagination.PAGE;
@@ -206,6 +207,7 @@ function editStrategy(id, userInput, userId, callback) {
   if(strategy){
     userInput['lastModified'] = new Date();
     userInput['updatedBy'] = userId;
+    userInput['priorityId']=env_config.priorityIdValues[userInput.priorityId.toLowerCase()];
     strategy.update(userInput,callback);
   }  
 }

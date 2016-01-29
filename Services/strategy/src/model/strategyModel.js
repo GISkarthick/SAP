@@ -39,6 +39,17 @@ strategySchema.post('save', function (strategy) {
   strategy.priorityId=getpriorityIdValue(+strategy.priorityId);
   // next();
 })
+strategySchema.pre('update', function (next) {
+  // update the value
+  // this.priorityId=env_config.priorityIdValues[this.priorityId.toLowerCase()];
+  next();
+})
+strategySchema.post('update', function (strategy) {
+  // update the value lable
+ // console.log(strategy); 
+// strategy.priorityId=getpriorityIdValue(+strategy.priorityId);
+  // next();
+})
 strategySchema.post('findOne', function(doc) {
   // update the value lable
   doc.priorityId=getpriorityIdValue(+doc.priorityId);
