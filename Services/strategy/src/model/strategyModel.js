@@ -60,4 +60,14 @@ strategySchema.post('find', function(doc) {
     doc[j].priorityId=getpriorityIdValue(+doc[j].priorityId);
   }
 });
+strategySchema.pre('findOne', function(doc) {
+  // update the value lable
+  this.priorityId=env_config.priorityIdValues[this.priorityId.toLowerCase()];
+});
+// strategySchema.pre('find', function(doc) {
+//   // update the value lable
+//   for(var j = 0, length2 = doc.length; j < length2; j++){
+//     doc[j].priorityId=getpriorityIdValue(+doc[j].priorityId);
+//   }
+// });
 module.exports = mongoose.model('strategy', strategySchema);
