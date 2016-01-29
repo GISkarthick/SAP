@@ -188,7 +188,7 @@ function generateSearchQuery(query, userInput){
   if(userInput['status']){
     var range = userInput['status'].split('-');
     if(range.length > 1)
-      query['status'] = { "$gte": range[0], "$lt": range[1] };
+      query['status'] = { "$gte": range[0], "$lte": range[1] };
   }
   return query;
 }
