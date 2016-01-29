@@ -207,7 +207,9 @@ function editStrategy(id, userInput, userId, callback) {
   if(strategy){
     userInput['lastModified'] = new Date();
     userInput['updatedBy'] = userId;
-    userInput['priorityId']=env_config.priorityIdValues[userInput.priorityId.toLowerCase()];
+    if (userInput['priorityId']) {
+         userInput['priorityId'] = env_config.priorityIdValues[userInput.priorityId.toLowerCase()];
+    }
     strategy.update(userInput,callback);
   }  
 }
