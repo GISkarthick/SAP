@@ -7,9 +7,11 @@ var verifyURL = '/oauth/token/verify';
 var removeTokenURL = '/oauth/token';
 var authcodeURL = '/oauth/code';
 var authtokenURL = '/oauth/token';
+var aadJwt = require('./aadJWT.js');
 
 module.exports = {
   checkOauth: checkOauth,
+  checkADtoken: checkADtoken,
   removeToken: removeToken,
   getCode : getCode,
   getToken : getToken
@@ -69,4 +71,18 @@ function getToken(inputData , callback) {
  
 	request(options, callback);
 }
-
+/*
+Author Ratheesh 
+AD token check.
+*/
+function checkADtoken(req ,res, callback) {
+   aadJwt.validateRequest(req, res, function (authorized) {
+        if (authorized){
+            callback(null,{statusCode:200},JSON.stringify(req.user)); // make sure we go to the next routes and don't stop here
+        }
+        else {
+            callback(null,{});
+        }
+        console.log(JSON.stringify(req.user));
+    });
+}

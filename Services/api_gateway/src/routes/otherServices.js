@@ -28,7 +28,9 @@ function getAudit(req, res, next) {
         res.send({error: "invalid_token"});
       }
   }*/
-  //authentication.checkOauth(req, callback);
+  //
+//authentication.checkOauth(req, callback);
+authentication.checkADtoken(req,res, callback);
   services.audit.getAudit(req.params, function(err, data) {
     if (err) { 
       return res.send({
@@ -56,7 +58,9 @@ function sendMail(req, res, next) {
         res.send({error: "invalid_token"});
       }
   }
- authentication.checkOauth(req, callback);
+ 
+//authentication.checkOauth(req, callback);
+authentication.checkADtoken(req,res, callback);
 
   return next();
 }

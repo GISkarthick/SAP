@@ -17,7 +17,7 @@ function getQlist(req, res, next) {
         if(clent === null  ){
           return res.send(body);
         }
-        services.qlist.getQlist(req.params, clent._id, function(err, data) {
+        services.qlist.getQlist(req.params, clent.upn, function(err, data) {
           if (err) { 
             return res.send({
               error: err
@@ -30,7 +30,9 @@ function getQlist(req, res, next) {
         res.send({error: "invalid_token"});
       }
   }
-  authentication.checkOauth(req, callback);
+  
+//authentication.checkOauth(req, callback);
+authentication.checkADtoken(req,res, callback);
 
   return next();
 }
@@ -41,7 +43,7 @@ function createQlist(req, res, next) {
       if (!error && response.statusCode == 200) {
         var clent = JSON.parse(body);
         if(clent === null  ){return res.send(body);}
-            services.qlist.createQlist(req.body, clent._id, function(err, data) {
+            services.qlist.createQlist(req.body, clent.upn, function(err, data) {
               if (err) { return res.send({error: err});}
               res.send(data);
             });
@@ -50,7 +52,9 @@ function createQlist(req, res, next) {
         res.send({error: "invalid_token"});
       }
   }
- authentication.checkOauth(req, callback);
+ 
+//authentication.checkOauth(req, callback);
+authentication.checkADtoken(req,res, callback);
 
   return next();
 }
@@ -61,7 +65,7 @@ function editQlist(req, res, next) {
       if (!error && response.statusCode == 200) {
         var clent = JSON.parse(body);
         if(clent === null  ){return res.send(body);}
-            services.qlist.editQlist(req.body, clent._id, function(err, data) {
+            services.qlist.editQlist(req.body, clent.upn, function(err, data) {
               if (err) { return res.send({error: err});}
               res.send(data);
             });
@@ -70,7 +74,9 @@ function editQlist(req, res, next) {
         res.send({error: "invalid_token"});
       }
   }
- authentication.checkOauth(req, callback);
+ 
+//authentication.checkOauth(req, callback);
+authentication.checkADtoken(req,res, callback);
 
   return next();
 }
@@ -81,7 +87,7 @@ function deleteQlist(req, res, next) {
       if (!error && response.statusCode == 200) {
         var clent = JSON.parse(body);
         if(clent === null  ){return res.send(body);}
-            services.qlist.deleteQlist(req.params.id, clent._id, function(err, data) {
+            services.qlist.deleteQlist(req.params.id, clent.upn, function(err, data) {
               if (err) { return res.send({error: err});}
               res.send(data);
             });
@@ -90,7 +96,9 @@ function deleteQlist(req, res, next) {
         res.send({error: "invalid_token"});
       }
   }
- authentication.checkOauth(req, callback);
+ 
+//authentication.checkOauth(req, callback);
+authentication.checkADtoken(req,res, callback);
 
   return next();
 }

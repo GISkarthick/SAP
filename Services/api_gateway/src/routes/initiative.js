@@ -30,7 +30,9 @@ function getInitiative(req, res, next) {
         res.send({error: "invalid_token"});
       }
   }
-  authentication.checkOauth(req, callback);
+  
+//authentication.checkOauth(req, callback);
+authentication.checkADtoken(req,res, callback);
 
   return next();
 }
@@ -50,7 +52,9 @@ function createInitiative(req, res, next) {
         res.send({error: "invalid_token"});
       }
   }
- authentication.checkOauth(req, callback);
+ 
+//authentication.checkOauth(req, callback);
+authentication.checkADtoken(req,res, callback);
 
   return next();
 }
@@ -70,7 +74,9 @@ function editInitiative(req, res, next) {
         res.send({error: "invalid_token"});
       }
   }
- authentication.checkOauth(req, callback);
+ 
+//authentication.checkOauth(req, callback);
+authentication.checkADtoken(req,res, callback);
 
   return next();
 }
@@ -90,7 +96,9 @@ function deleteInitiative(req, res, next) {
         res.send({error: "invalid_token"});
       }
   }
- authentication.checkOauth(req, callback);
+ 
+//authentication.checkOauth(req, callback);
+authentication.checkADtoken(req,res, callback);
 
   return next();
 }

@@ -1,6 +1,7 @@
 var express = require('express');
 var log = require('../log');
 var strategyModel  = require('./../model/strategyModel');
+var LookupsModel  = require('./../model/lookupModel');
 var env_config = require('../../config/config');
 var env_const = require('../../config/const.json');
 var router = express.Router();
@@ -14,7 +15,8 @@ module.exports = {
   deleteStrategy: deleteStrategy,
   addActionCount : addActionCount,
   searchStrategy : searchStrategy,
-  getStrategyPagination : getStrategyPagination
+  getStrategyPagination : getStrategyPagination,
+  getLookups: getLookups
 };
 
 
@@ -241,6 +243,13 @@ function addActionCount(id, completed, addaction, userId, callback) {
   }  
 }
 
+function getLookups(userId, callback) {
+    LookupsModel.findOne({}, function(err, data) {
+    // LookupsModel.find({}, function(err, data) {
+        console.log(err, data);
+        callback(err, data);
+    });
+};
 
 function deleteStrategy(id, userId, callback){  
   editStrategy(id, {isDeleted:true}, userId, callback);   
