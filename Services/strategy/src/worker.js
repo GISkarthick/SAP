@@ -249,6 +249,12 @@ worker_strategy.on('request', function(input, rep) {
         auditManager.createAudit({"name" : "strategy", "action" : "delete", "actionBy" : input.params.userId});
         rep.end({result: strategy, error: err});
       });
+      break;  
+    case 'getLookups':
+      log.info('getLookups...');
+      strategyManager.getLookups(input.params.userId, function(err, strategy) {
+        rep.end({result: strategy, error: err});
+      });
       break;      
   }
 });

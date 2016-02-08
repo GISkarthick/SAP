@@ -81,7 +81,9 @@ function getProfile(req, res, next) {
         res.send({error: "invalid_token"});
       }
   }
-  authentication.checkOauth(req, callback);
+  
+//authentication.checkOauth(req, callback);
+authentication.checkADtoken(req,res, callback);
 
   return next();
 }
@@ -92,7 +94,7 @@ function createProfile(req, res, next) {
       if (!error && response.statusCode == 200) {
         var clent = JSON.parse(body);
         if(clent === null  ){return res.send(body);}
-            services.user.createProfile(req.body, clent._id, function(err, data) {
+            services.user.createProfile(req.body, clent.upn, function(err, data) {
               if (err) { return res.send({error: err});}
               res.send(data);
             });
@@ -101,7 +103,9 @@ function createProfile(req, res, next) {
         res.send({error: "invalid_token"});
       }
   }
- authentication.checkOauth(req, callback);
+ 
+//authentication.checkOauth(req, callback);
+authentication.checkADtoken(req,res, callback);
 
   return next();
 }
@@ -127,7 +131,9 @@ function editProfile(req, res, next) {
         res.send({error: "invalid_token"});
       }
   }
-  authentication.checkOauth(req, callback);
+  
+//authentication.checkOauth(req, callback);
+authentication.checkADtoken(req,res, callback);
 
   return next();
 }
@@ -138,7 +144,7 @@ function deleteProfile(req, res, next) {
       if (!error && response.statusCode == 200) {
         var clent = JSON.parse(body);
         if(clent === null  ){return res.send(body);}
-            services.user.deleteProfile(req.params.id, clent._id, function(err, data) {
+            services.user.deleteProfile(req.params.id, clent.upn, function(err, data) {
               if (err) { return res.send({error: err});}
               res.send(data);
             });
@@ -147,7 +153,9 @@ function deleteProfile(req, res, next) {
         res.send({error: "invalid_token"});
       }
   }
- authentication.checkOauth(req, callback);
+ 
+//authentication.checkOauth(req, callback);
+authentication.checkADtoken(req,res, callback);
 
   return next();
 }

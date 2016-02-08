@@ -30,7 +30,9 @@ function getStrategyAction(req, res, next) {
         res.send({error: "invalid_token"});
       }
   }
-  authentication.checkOauth(req, callback);
+  
+//authentication.checkOauth(req, callback);
+authentication.checkADtoken(req,res, callback);
 
   return next();
 }
@@ -41,7 +43,7 @@ function createStrategyAction(req, res, next) {
       if (!error && response.statusCode == 200) {
         var clent = JSON.parse(body);
         if(clent === null  ){return res.send(body);}
-            services.strategyAction.createStrategyAction(req.body, clent._id, function(err, data) {
+            services.strategyAction.createStrategyAction(req.body, clent.upn, function(err, data) {
               if (err) { return res.send({error: err});}
               res.send(data);
             });
@@ -50,7 +52,9 @@ function createStrategyAction(req, res, next) {
         res.send({error: "invalid_token"});
       }
   }
- authentication.checkOauth(req, callback);
+ 
+//authentication.checkOauth(req, callback);
+authentication.checkADtoken(req,res, callback);
 
   return next();
 }
@@ -61,7 +65,7 @@ function editStrategyAction(req, res, next) {
       if (!error && response.statusCode == 200) {
         var clent = JSON.parse(body);
         if(clent === null  ){return res.send(body);}
-            services.strategyAction.editStrategyAction(req.params.id, req.body, clent._id, function(err, data) {
+            services.strategyAction.editStrategyAction(req.params.id, req.body, clent.upn, function(err, data) {
               if (err) { return res.send({error: err});}
               res.send(data);
             });
@@ -70,7 +74,9 @@ function editStrategyAction(req, res, next) {
         res.send({error: "invalid_token"});
       }
   }
- authentication.checkOauth(req, callback);
+ 
+//authentication.checkOauth(req, callback);
+authentication.checkADtoken(req,res, callback);
 
   return next();
 }
@@ -81,7 +87,7 @@ function deleteStrategyAction(req, res, next) {
       if (!error && response.statusCode == 200) {
         var clent = JSON.parse(body);
         if(clent === null  ){return res.send(body);}
-            services.strategyAction.deleteStrategyAction(req.params.id, clent._id, function(err, data) {
+            services.strategyAction.deleteStrategyAction(req.params.id, clent.upn, function(err, data) {
               if (err) { return res.send({error: err});}
               res.send(data);
             });
@@ -90,7 +96,9 @@ function deleteStrategyAction(req, res, next) {
         res.send({error: "invalid_token"});
       }
   }
- authentication.checkOauth(req, callback);
+ 
+//authentication.checkOauth(req, callback);
+authentication.checkADtoken(req,res, callback);
 
   return next();
 }

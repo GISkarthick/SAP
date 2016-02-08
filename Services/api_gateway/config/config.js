@@ -5,10 +5,11 @@ var brokerHost = process.env.BROKER_PATH ? process.env.BROKER_PATH : "tcp://127.
 var broadcastHost = process.env.BROADCAST_PATH ? process.env.BROADCAST_PATH : "tcp://*:3008";
 var authUrl = process.env.AUTH_PATH ? process.env.AUTH_PATH : "http://localhost:5000";
 
-
 module.exports = {
   port: port,
   brokerHost : brokerHost,
   broadcastHost : broadcastHost,
-  authUrl : authUrl
+  authUrl : authUrl,
+  authority : 'https://login.microsoftonline.com/perkinswillinc.onmicrosoft.com',
+  audience : '89cc2010-f9d1-44e0-9c84-14931e666173'
 }

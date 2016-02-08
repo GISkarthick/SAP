@@ -43,6 +43,9 @@ module.exports = {
     getStrategy: function(strategyData, userId, callback) {
       clientRequest('strategy', 'getStrategy', {strategyData: strategyData, userId: userId}, callback);
     },
+    getLookups: function(strategyData, userId, callback) {
+      clientRequest('strategy', 'getLookups', {strategyData: strategyData, userId: userId}, callback);
+    },
     getStrategyPagination: function(strategyData, userId, callback) {
       clientRequest('strategy', 'getStrategyPagination', {strategyData: strategyData, userId: userId}, callback);
     },
